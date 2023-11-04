@@ -1,10 +1,10 @@
 # embedR
 
-The `embedR` package is an open-source R package to generate and analyze text embeddings. It uses open and paid APIs from [Hugging Face](), [OpenAI](), and [Cohere]()and provides multiple options to generate, group, project, relabel, and visualize text embeddings.  
+The `embedR` package is an open-source R package to generate and analyze text embeddings. It uses open and paid APIs from [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/) and provides multiple options to generate, group, project, relabel, and visualize text embeddings.  
 
 ## General Information
 
-The `text2sdg` package is developed by [Dirk U. Wulff](), with contributions from Samuel Aeschbach, Zak Hussain, and Rui Mata. It is published under the GNU General Public License.
+The `text2sdg` package is developed by [Dirk U. Wulff](https://github.com/dwulff), with contributions from [Samuel Aeschbach](https://samuelaeschbach.com/), [Zak Hussain](https://github.com/Zak-Hussain), and [Rui Mata](https://github.com/matarui). It is published under the GNU General Public License.
 
 An overview of the package can be accessed online or from within R using ?text2sdg.
 
@@ -15,8 +15,16 @@ The latest development version on GitHub can be installed via `devtools::install
 # Usage
 
 ```r
+# load package
+library(embedR)
+
 # vector of texts
 texts = c("This is text 1", "This is text 2")
+
+# set api tokens
+set_token("openai" = "TOKEN",
+          "huggingface" = "TOKEN",
+          "cohere" = "TOKEN")
 
 # analyze
 result = texts %>% 
@@ -38,10 +46,10 @@ result = texts %>%
   
   # relabel groups
   mutate(labels = label(group_texts, 
-                        api = "openai")) %>% 
+                        api = "openai"))
                         
-  # visualize
-  visualize()
+# visualize
+result %>% visualize()
 ```
 
 ## Citation
