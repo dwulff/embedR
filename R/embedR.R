@@ -1,0 +1,65 @@
+#' Embed and analyze text
+#'
+#' The package provides access to the APIs of Hugging Face, OpenAI, and Cohere generate text embeddings and methodology to process, analyze, and visualize these embeddings.
+#'
+#' @section Tokens:
+#'
+#'   \code{\link{set_tokens}} sets access tokens for the APIs of Hugging Face, OpenAI, and Cohere.
+#'
+#'   \code{\link{get_tokens}} shows tokens that have been set during the current session.
+#'
+#' @section Embed:
+#'
+#'   \code{\link{embed}} generates text embeddings from different APIs and models.
+#'
+#'   \code{\link{crosstab_sdg}} calculates cross tables of correlations between
+#'   either the query systems or the different SDGs.
+#'
+#' @section Process:
+#'
+#'   \code{\link{projects}} contain random selection of research project
+#'   descriptions from the P3 database of the Swiss National Science Foundation.
+#'
+#'   \code{\link{aurora_queries}}, \code{\link{elsevier_queries}},
+#'   \code{\link{siris_queries}}, \code{\link{sdsn_queries}}, \code{\link{auckland_queries}} and
+#'   \code{\link{sdgo_queries}} contain a mapping of SDGs and search queries
+#'   as they are employed in the respective systems.
+#'
+#' @section Analyze:
+#'
+#'   \code{\link{projects}} contain random selection of research project
+#'   descriptions from the P3 database of the Swiss National Science Foundation.
+#'
+#'   \code{\link{aurora_queries}}, \code{\link{elsevier_queries}},
+#'   \code{\link{siris_queries}}, \code{\link{sdsn_queries}}, \code{\link{auckland_queries}} and
+#'   \code{\link{sdgo_queries}} contain a mapping of SDGs and search queries
+#'   as they are employed in the respective systems.
+#'
+#' @section Visualize:
+#'
+#'.
+#'
+#' @examples
+#' \donttest{
+#' # detect SDGs using default systems
+#' hits <- detect_sdg_systems(projects)
+#'
+#' #' # detect SDGs using all five systems
+#' hits <- detect_sdg_systems(projects,
+#'   system = c("Aurora", "Elsevier", "SIRIS", "SDSN", "SDGO")
+#' )
+#'
+#' # visualize SDG frequencies
+#' plot_sdg(hits)
+#'
+#' # correlations between systems
+#' crosstab_sdg(hits)
+#'
+#' # correlations between SDGs
+#' crosstab_sdg(hits, compare = "sdgs")
+#' }
+#'
+#' @docType package
+#' @name text2sdg
+NULL
+#> NULL
