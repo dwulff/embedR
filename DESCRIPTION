@@ -1,11 +1,34 @@
-Package: embeddeR
+Package: embedR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Generating and analyzing text embeddings
+Description: Generating and analyzing text embeddings for the semantic analysis of texts. 
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: c(
+    person(c("Dirk","U."), "Wulff", role = c("aut","cre"),
+    		email = "dirk.wulff@gmail.com",
+    		comment = c(ORCID = "0000-0002-4008-8022")),
+    person(c("Samuel"), "Aeschbach", role= "ctb",
+            email= "samuel.aeschbach@gmail.com",
+            comment = c(ORCID = "0009-0002-2965-1889")),
+    person("Zak", "Hussain", role= "ctb",
+            email= "samuel.aeschbach@gmail.com",
+            comment = c(ORCID = "0000-0002-6167-4901")),
+    person("Rui", "Mata", role = "ctb",
+        email= "rui.mata@unibas.ch",
+        comment = c(ORCID = "0000-0002-7730-9511"))
+    )
+Author: Dirk U. Wulff [aut, cre] (<https://orcid.org/0000-0002-4008-8022>),
+  Samuel Aeschbach [ctb] (<https://orcid.org/0000-0002-6167-4901>),
+  Zak Hussain [ctb] (<https://orcid.org/0000-0002-6167-4901>),
+  Rui Mata [ctb] (<https://orcid.org/0000-0002-1679-906X>)
+URL: https://github.com/dwulff/embedR
+BugReports: https://github.com/dwulff/embedR/issues
+Maintainer: Dirk Wulff <dirk.wulff@gmail.com>
+License: GPL-3
+Depends: R (>= 3.1.0),
+Imports: dplyr (>= 0.5.0), tidyr, tibble, ggplot2, magrittr, stringr, httr, glue, jsonlite, tidytext, igraph, umap, reticulate, progress
+Suggests: testthat
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.2.3
+Repository: CRAN
