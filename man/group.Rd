@@ -2,7 +2,7 @@
 % Please edit documentation in R/group.R
 \name{group}
 \alias{group}
-\title{Group embedding or projection}
+\title{Group embedding vectors}
 \usage{
 group(embedding, method = "identity", threshold = 0.995, verbose = FALSE)
 }
@@ -11,7 +11,7 @@ group(embedding, method = "identity", threshold = 0.995, verbose = FALSE)
 
 \item{method}{a \code{character} string specifying the reduction method One of \code{c("identity","fuzzy")}. Default is \code{"identity"}.}
 
-\item{threshold}{a \code{numeric} specifying the threshold for \code{method = fuzzy}.}
+\item{threshold}{a \code{numeric} specifying the threshold for \code{method = "fuzzy"}. The threshold argument defines the quantile of the similarity (arccos) distribution that is used as the threshold for grouping embedding object.}
 
 \item{verbose}{a \code{logical} specifying whether to show messages.'}
 }
@@ -19,7 +19,7 @@ group(embedding, method = "identity", threshold = 0.995, verbose = FALSE)
 The function returns a \code{matrix} containing the embedding or projection. The \code{matrix} has \code{ncol(embedding)} dimensions and as many rows as determined by the condensing method. The \code{matrix} will gain the attribute \code{counts} containing the frequency table of each element in the original \code{embedding} or \code{projection}.
 }
 \description{
-\code{group} transforms an embedding projections to a tibble ready for \code{ggplot2}.
+\code{group} condenses the embedding by grouping highly identical or highly similar objects.
 }
 \examples{
 

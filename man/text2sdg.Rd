@@ -5,33 +5,34 @@
 \alias{text2sdg}
 \title{Embed and analyze text}
 \description{
-The embedR package provides functions for detecting SDGs in text, as well
-as for analyzing and visualization the hits found in text. The following
-provides a brief overview of the contents of the package.
+The package provides access to the APIs of Hugging Face, OpenAI, and Cohere generate text embeddings and methodology to process, analyze, and visualize these embeddings.
 }
-\section{Detect functions}{
+\section{Tokens}{
 
 
-  \code{\link{detect_sdg}} detects SDGs in text using up to five different
-  query systems: Aurora, Elsevier, SIRIS, SDSN, and OSDG
+  \code{\link{set_tokens}} sets access tokens for the APIs of Hugging Face, OpenAI, and Cohere.
 
-  \code{\link{detect_any}} detects SDGs in text using self-specified queries
-  utilizing the lucene-style syntax of the
-  \href{https://cran.r-project.org/package=corpustools}{\code{corpustools}}
-  package.
+  \code{\link{get_tokens}} shows tokens that have been set during the current session.
 }
 
-\section{Analysis functions}{
+\section{Embed}{
 
 
-  \code{\link{plot_sdg}} visualizes the relative frequency of SDG hits across
-  query systems.
-
-  \code{\link{crosstab_sdg}} calculates cross tables of correlations between
-  either the query systems or the different SDGs.
+  \code{\link{embed}} generates text embeddings using different APIs and models.
 }
 
-\section{Datasets}{
+\section{Process}{
+
+
+  \code{\link{project}} .
+
+  \code{\link{aurora_queries}}, \code{\link{elsevier_queries}},
+  \code{\link{siris_queries}}, \code{\link{sdsn_queries}}, \code{\link{auckland_queries}} and
+  \code{\link{sdgo_queries}} contain a mapping of SDGs and search queries
+  as they are employed in the respective systems.
+}
+
+\section{Analyze}{
 
 
   \code{\link{projects}} contain random selection of research project
@@ -41,6 +42,12 @@ provides a brief overview of the contents of the package.
   \code{\link{siris_queries}}, \code{\link{sdsn_queries}}, \code{\link{auckland_queries}} and
   \code{\link{sdgo_queries}} contain a mapping of SDGs and search queries
   as they are employed in the respective systems.
+}
+
+\section{Visualize}{
+
+
+.
 }
 
 \examples{

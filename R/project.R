@@ -127,10 +127,14 @@ project <- function(embedding, method = "mds", k = 2, ..., verbose = FALSE){
       }
     }
 
-  # out
+  # adapt
   rownames(projection) = rownames(embedding)
-  projection
+  if(!"embedR" %in% class(projection)) {
+    class(projection) = c("embedR", class(projection))
+    }
 
+  # out
+  projection
 
   }
 

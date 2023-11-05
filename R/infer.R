@@ -42,6 +42,9 @@ infer_labels <- function(labels,
   # container
   generated_labels = character(length(labels))
 
+  # fix quotation marks
+  labels = lapply(labels, function(x) stringr::str_replace_all(x, '"', "'"))
+
   # HUGGINGFACE -------
   if(verbose) message("Running Hugging Face")
   if(api == "huggingface"){
@@ -114,7 +117,7 @@ infer_labels <- function(labels,
     if(!"openai" %in% suppressMessages(get_tokens())$api) stop("Token of openai is missing. Set using set_tokens().")
 
     # setup progress bar
-    bar = progress::progress_bar$new(format = "  generating labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
+    bar = progress::progress_bar$new(format = "  inferring labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
     bar$tick(0)
 
     # iterate through labels

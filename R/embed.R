@@ -24,8 +24,11 @@
 embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose = FALSE) {
 
   # run tests
-  if(!class(text) == "character") stop('Argument text must be a "character" vector')
-  if(!api[1] %in% c("huggingface","openai","cohere")) stop('Argument text must be one of "huggingface","openai", or "cohere"')
+  if(!class(text) == "character") stop('Argument text must be a "character" vector.')
+  if(!api[1] %in% c("huggingface","openai","cohere")) stop('Argument text must be one of c("huggingface","openai", "cohere").')
+  if(!is.null(model) && !is.character(model[1])) stop('Argument model must be of type character.')
+  if(!is.null(type) && !type[1] %in% c("search_document","search_query","classification","clustering")) stop('Argument type must be one of c("search_document","search_query","classification","clustering").')
+  if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
 
   # set to unique
   unique_text = unique(text)
@@ -187,10 +190,14 @@ embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose 
   }
 
 
-  # RETURN -----
+  # expand and class
+  emb = emb[text,]
+  if(!"embedR" %in% class(emb)) {
+    class(emb) = c("embedR", class(emb))
+    }
 
-  emb[text,]
-
+  # out
+  emb
   }
 
 

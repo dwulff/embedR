@@ -10,15 +10,11 @@
 #'
 #' @section Embed:
 #'
-#'   \code{\link{embed}} generates text embeddings from different APIs and models.
-#'
-#'   \code{\link{crosstab_sdg}} calculates cross tables of correlations between
-#'   either the query systems or the different SDGs.
+#'   \code{\link{embed}} generates text embeddings using different APIs and models.
 #'
 #' @section Process:
 #'
-#'   \code{\link{projects}} contain random selection of research project
-#'   descriptions from the P3 database of the Swiss National Science Foundation.
+#'   \code{\link{project}} .
 #'
 #'   \code{\link{aurora_queries}}, \code{\link{elsevier_queries}},
 #'   \code{\link{siris_queries}}, \code{\link{sdsn_queries}}, \code{\link{auckland_queries}} and

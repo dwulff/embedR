@@ -1,10 +1,10 @@
-#' Group embedding or projection
+#' Group embedding vectors
 #'
-#' \code{group} transforms an embedding projections to a tibble ready for \code{ggplot2}.
+#' \code{group} condenses the embedding by grouping highly identical or highly similar objects.
 #'
 #' @param embedding a \code{numeric} matrix containing a text embedding or embedding projection.
 #' @param method a \code{character} string specifying the reduction method One of \code{c("identity","fuzzy")}. Default is \code{"identity"}.
-#' @param threshold a \code{numeric} specifying the threshold for \code{method = fuzzy}.
+#' @param threshold a \code{numeric} specifying the threshold for \code{method = "fuzzy"}. The threshold argument defines the quantile of the similarity (arccos) distribution that is used as the threshold for grouping embedding object.
 #' @param verbose a \code{logical} specifying whether to show messages.'
 #'
 #' @return The function returns a \code{matrix} containing the embedding or projection. The \code{matrix} has \code{ncol(embedding)} dimensions and as many rows as determined by the condensing method. The \code{matrix} will gain the attribute \code{counts} containing the frequency table of each element in the original \code{embedding} or \code{projection}.
@@ -27,6 +27,7 @@ group <- function(embedding, method = "identity", threshold = .995, verbose = FA
   if(mode(embedding) != "numeric") stop("Argument embedding must be a numeric matrix.")
   if(!method[1] %in% c("identity","fuzzy")) stop('Argument method must be one of c("identity","fuzzy").')
   if(!is.numeric(threshold) | threshold > 1 | threshold < 0) stop('Argument threshold must be a scalar between 0 and 1.')
+  if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
 
   # Identity -----
   if(method == "identity"){
@@ -87,6 +88,11 @@ group <- function(embedding, method = "identity", threshold = .995, verbose = FA
 
   }
 
+
+  # class
+  if(!"embedR" %in% class(grouped_embedding)) {
+    class(grouped_embedding) = c("embedR", class(grouped_embedding))
+    }
 
   # out
   grouped_embedding
