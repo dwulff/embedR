@@ -72,11 +72,11 @@ plot.embedR_tbl <- function(data,
 
   # generate plot
   p = ggplot2::ggplot(data = data,
-                  mapping = ggplot2::aes_string(x = x, y = y ,
-                                                color = "color",
-                                                size = "size",
-                                                label = "label")) +
-    ggplot2::geom_point()
+                      mapping = ggplot2::aes_string(x = x, y = y ,
+                                                    color = "color",
+                                                    size = "size",
+                                                    label = "label")) +
+    ggplot2::geom_point() + ggplot2::theme_minimal()
 
   # handle labels
   if(!is.null(label)){
@@ -88,21 +88,40 @@ plot.embedR_tbl <- function(data,
     }
 
   # add colors
+  if(!is.null(dplyr::enquo(size))){
+
+    # variable name
+    name = dplyr::enquo(size) %>%
+      rlang::expr_text() %>%
+      stringr::str_remove("~")
+
+    # add legend name
+    p = p + ggplot2::guides(size = ggplot2::guide_legend(title=name))
+
+  }
+
+  # add colors
   if(!is.null(viridis_set) & "color" %in% names(data)){
 
+    # variable name
+    name = dplyr::enquo(color) %>%
+      rlang::expr_text() %>%
+      stringr::str_remove("~")
+
     # check type
-    fun = ifelse(is.numeric(data %>% pull(color)),
+    fun = ifelse(is.numeric(data %>% dplyr::pull(color)),
                  ggplot2::scale_color_viridis_c,
                  ggplot2::scale_color_viridis_d)
 
     # style colors
     p = p + fun(option = viridis_set,
                 begin = viridis_limits[1],
-                end = viridis_limits[2])
+                end = viridis_limits[2],
+                name = name)
     }
 
   # out
-  p + ggplot2::theme_minimal()
+  p
 
   }
 

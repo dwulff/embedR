@@ -5,10 +5,7 @@
 \alias{embedR}
 \title{Embed and analyze text}
 \description{
-The \code{embedR} package is an open-source R package to generate and analyze text embeddings. It gives access to state-of-the-art open and paid APIs from \href{https://huggingface.co/inference-api}{Hugging Face}, \href{https://openai.com/blog/openai-api}{OpenAI}, and \href{https://cohere.com/}{Cohere} to gnerate text embeddings and offers methods to group, project, relabel, and visualize them.
-}
-\details{
-The following provides an overview of the package's functions:
+The \code{embedR} package is an open-source R package to generate and analyze text embeddings. It gives access to state-of-the-art open and paid APIs from \href{https://huggingface.co/inference-api}{Hugging Face}, \href{https://openai.com/blog/openai-api}{OpenAI}, and \href{https://cohere.com/}{Cohere} to gnerate text embeddings and offers methods to group, project, relabel, and visualize them. The following provides an overview of the package's functions:
 }
 \section{Tokens}{
 
@@ -47,25 +44,25 @@ The following provides an overview of the package's functions:
 
   \code{\link{er_frame}} generates a tibble from the embedding objects including potential attributes.
 
-  \code{\link{er_infer_labels}} uses state-of-the-art generatiev models from \href{https://huggingface.co/inference-api}{Hugging Face} and \href{https://openai.com/blog/openai-api}{OpenAI} to generate category labels for groups of texts.
+  \code{\link{er_infer_labels}} uses state-of-the-art generative models from \href{https://huggingface.co/inference-api}{Hugging Face} and \href{https://openai.com/blog/openai-api}{OpenAI} to generate category labels for groups of texts.
 }
 
 \section{Visualize}{
 
 
- \code{\link{plot}} produces a 2D scatterplot of embedding vectors (typically after projection) with options for customization.
+ \code{\link{plot}} produces a 2D scatter plot of embedding vectors (typically after projection) with options for customization.
 }
 
 \section{Data}{
 
 
- \code{\link{neo}}
+ \code{\link{neo}} data set containing 300 items of the personality questionnaire NEO.
 
- \code{\link{ai}}
+ \code{\link{ai}} data set containing 2,500 free associations of artificial intelligence provided by laypeople.
 }
 
 \examples{
-\donttest{
+\dontrun{
 # load package
 library(embedR)
 

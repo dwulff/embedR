@@ -8,16 +8,16 @@ The `embedR` package is developed by [Dirk U. Wulff](https://github.com/dwulff),
 
 An overview of the package can be accessed online or from within R using `?embedR`.
 
-# Installation
+## Installation
 
-The latest development version on GitHub can be installed via `devtools::install_github("dwulff/embedR")`. Note that this requires prior installation of the `devtools` package.  
+The latest development version on GitHub can be installed via `devtools::install_github("dwulff/embedR")`. This requires prior installation of the `devtools` package.  
 
-# Caution
+## Caution
 
 Use of this package can result in data protection violations. The package contains functions that send data to the servers of external APIs providers, including [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/). 
 
 
-# Usage
+## Usage
 
 ```r
 # load package

@@ -1,4 +1,45 @@
-url: ~
-template:
-  bootstrap: 5
-
+reference:
+  - title: Overview
+    contents:
+    - embedR
+  - title: Tokens
+    contents:
+    - er_set_tokens
+    - er_get_tokens
+  - title: Embed
+    contents:
+    - er_embed
+  - title: Process
+    contents:
+    - er_group
+    - er_project
+    - pacmap
+  - title: Analysis
+    contents:
+    - er_compare_vectors
+    - er_compare_embeddings
+    - er_cluster
+  - title: Helper
+    contents:
+    - er_frame
+    - er_infer_labels
+  - title: Visualize
+    contents:
+    - plot.embedR
+    - plot.embedR_tbl
+    - print.embedR
+  - title: Data
+    contents:
+    - ai
+    - neo
+navbar:
+  title: ~
+  type: default
+  left:
+  - text: Overview
+    href: reference/embedR.html
+  - text: Reference
+    href: reference/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/dwulff/embedR
