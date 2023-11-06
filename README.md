@@ -1,20 +1,20 @@
 # embedR
 
-The `embedR` package is an open-source R package to generate and analyze state-of-the-art text embeddings. It leverages open and paid APIs from [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/) to generate text embeddings and offers methods to group, project, relabel, and visualize them.  
+The `embedR` package is an open-source R package to generate and analyze state-of-the-art text embeddings. Providing access to free and paid APIs from [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/), the package offers functions to generate, group, project, label, and visualize text embeddings.  
 
 ## General Information
 
 The `embedR` package is developed by [Dirk U. Wulff](https://github.com/dwulff), with contributions from [Samuel Aeschbach](https://samuelaeschbach.com/), [Zak Hussain](https://github.com/Zak-Hussain), and [Rui Mata](https://github.com/matarui). It is published under the GNU General Public License.
 
-An overview of the package can be accessed online or from within R using `?embedR`.
+An overview of the package can found [here](https://dwulff.github.io/embedR/reference/embedR.html) or accessed from within R using `?embedR`.
 
 ## Installation
 
-The latest development version on GitHub can be installed via `devtools::install_github("dwulff/embedR")`. This requires prior installation of the `devtools` package.  
+The development version can be installed via `devtools::install_github("dwulff/embedR")`. This requires prior installation of the `devtools` package.  
 
 ## Caution
 
-Use of this package can result in data protection violations. The package contains functions that send data to the servers of external APIs providers, including [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/). 
+Use of this package can result in data protection violations. It contains functions that send data to external servers of [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), or [Cohere](https://cohere.com/). 
 
 
 ## Usage
