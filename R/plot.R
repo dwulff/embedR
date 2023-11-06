@@ -66,8 +66,8 @@ plot.embedR_tbl <- function(data,
   label_filter = dplyr::enquo(label_filter)
   if(rlang::expr_text(label_filter)!= "~NULL"){
     data = data %>% dplyr::filter(!(!!label_filter)) %>%
-      mutate(label = "") %>%
-      bind_rows(data_false = data %>% dplyr::filter(!!label_filter))
+      dplyr::mutate(label = "") %>%
+      dplyr::bind_rows(data_false = data %>% dplyr::filter(!!label_filter))
     }
 
   # generate plot
