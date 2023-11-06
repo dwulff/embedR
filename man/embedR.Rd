@@ -5,7 +5,7 @@
 \alias{embedR}
 \title{Embed and analyze text}
 \description{
-The \code{embedR} package is an open-source R package to generate and analyze text embeddings. It gives access to state-of-the-art open and paid APIs from \href{https://huggingface.co/inference-api}{Hugging Face}, \href{https://openai.com/blog/openai-api}{OpenAI}, and \href{https://cohere.com/}(Cohere) to gnerate text embeddings and offers methods to group, project, relabel, and visualize them.
+The \code{embedR} package is an open-source R package to generate and analyze text embeddings. It gives access to state-of-the-art open and paid APIs from \href{https://huggingface.co/inference-api}{Hugging Face}, \href{https://openai.com/blog/openai-api}{OpenAI}, and \href{https://cohere.com/}{Cohere} to gnerate text embeddings and offers methods to group, project, relabel, and visualize them.
 }
 \details{
 The following provides an overview of the package's functions:
@@ -21,7 +21,7 @@ The following provides an overview of the package's functions:
 \section{Embed}{
 
 
-  \code{\link{er_embed}} generates state-of-the-art text embeddings using the APIs from \href{https://huggingface.co/inference-api}{Hugging Face}, \href{https://openai.com/blog/openai-api}{OpenAI}, and \href{https://cohere.com/}(Cohere).
+  \code{\link{er_embed}} generates state-of-the-art text embeddings using the APIs from \href{https://huggingface.co/inference-api}{Hugging Face}, \href{https://openai.com/blog/openai-api}{OpenAI}, and \href{https://cohere.com/}{Cohere}.
 }
 
 \section{Process}{

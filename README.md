@@ -1,6 +1,6 @@
 # embedR
 
-The `embedR` package is an open-source R package to **generate and analyze text embeddings**. It gives access to open and paid APIs from [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/) to gnerate text embeddings and offers methods to group, project, relabel, and visualize them.  
+The `embedR` package is an open-source R package to generate and analyze text embeddings. It gives access to open and paid APIs from [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/) to gnerate text embeddings and offers methods to group, project, relabel, and visualize them.  
 
 ## General Information
 
