@@ -13,6 +13,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/ai.html</loc>
+  </url>
+  <url>
     <loc>/reference/compare_embeddings.html</loc>
   </url>
   <url>
@@ -20,6 +23,36 @@
   </url>
   <url>
     <loc>/reference/embed.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_cluster.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_compare_embeddings.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_compare_vectors.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_embed.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_frame.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_get_tokens.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_group.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_infer_labels.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_project.html</loc>
+  </url>
+  <url>
+    <loc>/reference/er_set_tokens.html</loc>
   </url>
   <url>
     <loc>/reference/frame.html</loc>
@@ -40,13 +73,25 @@
     <loc>/reference/infer_labels.html</loc>
   </url>
   <url>
+    <loc>/reference/neo.html</loc>
+  </url>
+  <url>
     <loc>/reference/pacmap.html</loc>
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
   </url>
   <url>
+    <loc>/reference/plot.embedR.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot.embedR_tbl.html</loc>
+  </url>
+  <url>
     <loc>/reference/plot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/print.embedR.html</loc>
   </url>
   <url>
     <loc>/reference/project.html</loc>
