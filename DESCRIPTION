@@ -1,7 +1,7 @@
 Package: embedR
 Type: Package
 Title: Embed and analyze text
-Description: The package provides access to the APIs of Hugging Face, OpenAI, and Cohere generate text embeddings and methodology to process, analyze, and visualize these embeddings. 
+Description: The package provides access to the APIs of Hugging Face, OpenAI, and Cohere to generate text embeddings and methodology to process, analyze, and visualize them. 
 Version: 0.1.0
 Authors@R: c(
     person(c("Dirk","U."), "Wulff", role = c("aut","cre"),

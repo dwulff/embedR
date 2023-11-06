@@ -1,10 +1,10 @@
 # embedR
 
-The `embedR` package is an open-source R package to generate and analyze text embeddings. It uses open and paid APIs from [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/) and offers various options to generate, group, project, relabel, and visualize text embeddings.  
+The `embedR` package is an open-source R package to **generate and analyze text embeddings**. It gives access to open and paid APIs from [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/) to gnerate text embeddings and offers methods to group, project, relabel, and visualize them.  
 
 ## General Information
 
-The `text2sdg` package is developed by [Dirk U. Wulff](https://github.com/dwulff), with contributions from [Samuel Aeschbach](https://samuelaeschbach.com/), [Zak Hussain](https://github.com/Zak-Hussain), and [Rui Mata](https://github.com/matarui). It is published under the GNU General Public License.
+The `embedR` package is developed by [Dirk U. Wulff](https://github.com/dwulff), with contributions from [Samuel Aeschbach](https://samuelaeschbach.com/), [Zak Hussain](https://github.com/Zak-Hussain), and [Rui Mata](https://github.com/matarui). It is published under the GNU General Public License.
 
 An overview of the package can be accessed online or from within R using ?embedR.
 
@@ -14,7 +14,7 @@ The latest development version on GitHub can be installed via `devtools::install
 
 # Caution
 
-Use of this package can result in data security violations. The package involves function that send data to the servers of external APIs providers, including [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/). 
+Use of this package can result in data protection violations. The package contains functions that send data to the servers of external APIs providers, including [Hugging Face](https://huggingface.co/inference-api), [OpenAI](https://openai.com/blog/openai-api), and [Cohere](https://cohere.com/). 
 
 
 # Usage
@@ -24,37 +24,43 @@ Use of this package can result in data security violations. The package involves
 library(embedR)
 
 # vector of texts
-texts = c("This is text 1", "This is text 2")
+texts = c("This is text 1", "This is text 2", ...)
 
 # set api tokens
-set_token("openai" = "TOKEN",
-          "huggingface" = "TOKEN",
-          "cohere" = "TOKEN")
+er_set_token("openai" = "TOKEN",
+             "huggingface" = "TOKEN",
+             "cohere" = "TOKEN")
 
-# analyze
-result = texts %>% 
+# generate embedding
+embedding = texts %>% 
 
   # generate text embedding
-  embed(api = "openai") %>% 
-  
+  er_embed(api = "openai") 
+
+# analyze embedding  
+result = embedding %>% 
+
   # group similar texts
-  group(method = "fuzzy") %>% 
+  er_group(method = "fuzzy") %>% 
   
   # generate 2D projection
-  project(method = "umap") %>% 
+  er_project(method = "umap") %>% 
   
   # cluster projection
-  cluster(method = "dbscan") %>% 
+  er_cluster(method = "louvain") %>% 
   
   # produce data frame
-  frame() %>% 
+  er_frame()
   
+# re-label text groups
+result = embedding %>% 
+
   # relabel groups
-  mutate(labels = label(group_texts, 
-                        api = "openai"))
+  er_mutate(labels = label(group_texts, 
+                           api = "openai"))
                         
 # visualize
-result %>% visualize()
+result %>% plot()
 ```
 
 ## Citation

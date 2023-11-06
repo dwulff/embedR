@@ -1,43 +1,52 @@
-#' Reduce embedding or projection
+#' Infer category labels
 #'
-#' \code{to_tibble} transforms an embedding projections to a tibble ready for \code{ggplot2}.
+#' \code{er_infer_labels} infers category labels using generative large language models.
 #'
-#' Note that the default Hugging Face model (meta-llama/Llama-2-70b-chat-hf) requires a PRO subscription token and that extensive of the gpt-4 model can be expensive.
+#' The models recommended for label inferences, including the default models, are not free for use and using them can result in significant costs. Costs will depend on the size of input texts and the number of labels inferred. The default Hugging Face model, \code{meta-llama/Llama-2-70b-chat-hf}, requires a PRO subscription at a monthly price. The OpenAI models, including the default \code{gpt-4} model, incur costs based on the number of tokens in the input and output.
+#'
+#' To obtain the best possible labels it is recommended to adjust the prompt arguments \code{role}, \code{system}, and \code{instruct}.
 #'
 #' @param labels a \code{list} of character vectors.
 #' @param api a \code{character} string specifying the api One of \code{c("huggingface","openai","cohere")}. Default is \code{"openai"}.
-#' @param model a \code{character} string specifying the model label. Must match the model names on the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models}, \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}, \href{https://cohere.com/embeddings}{cohere.com/embeddings}. Defaults to \code{"meta-llama/Llama-2-70b-chat-hf"} for \code{api = "huggingface"} and to \code{"gpt-4"} for \code{api = "openai"}.
+#' @param model a \code{character} string specifying the model label. Must match the model names on the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models} and \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}. Defaults to \code{"meta-llama/Llama-2-70b-chat-hf"} for \code{api = "huggingface"} and to \code{"gpt-4"} for \code{api = "openai"}.
 #' @param role a \code{character} string specifying the systems role in place of \code{role} in the general system instruction to the model. Default is \code{"assistant"}.
-#' @param system a \code{character} string specifying the general system instruction to the model. Default is \code{"You are a helpful and honest \code{role}, who provides specific and accurate category labels based on examples."}.
-#' @param instruct a \code{character} string specifying the instruction for the model. Must contain the placeholder \code{"{examples}"}. Default is \code{Generate a specific and accurate category label for the following examples: {examples}. Strictly respond with a single word.}.
+#' @param system a \code{character} string specifying the general system instruction to the model. Default is \code{"You are a helpful {role} who provides short, specific, and accurate category labels."}.
+#' @param instruct a \code{character} string specifying the instruction for the model. Must contain the placeholder \code{"{examples}"}. Default is \code{"Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place '@' before and after the category label."}.
 #' @param verbose a \code{logical} specifying whether to show messages.'
 #'
 #' @return The function returns a \code{character} vector of category labels.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv
 #'
 #' @examples
 #'
-#' # get embedding
-#' projection <- embed(neo$text) %>%
-#'   project() %>%
-#'   to_tibble()
+#' # get labeled results
+#' result <- er_embed(neo$text) %>%
+#'   er_group() %>%
+#'   er_project() %>%
+#'   er_frame() %>%
+#'   dplyr::mutate(group_labels = er_infer_labels(group_texts))
 #'
 #' @export
 
-infer_labels <- function(labels,
-                         api = "huggingface",
-                         model = NULL,
-                         role = "assistant",
-                         instruct = NULL,
-                         system = NULL,
-                         verbose = FALSE){
+er_infer_labels <- function(labels,
+                            api = "huggingface",
+                            model = NULL,
+                            role = "assistant",
+                            instruct = NULL,
+                            system = NULL,
+                            verbose = FALSE){
 
 
   # run tests
   if(!class(labels) == "list") stop('Argument labels must be a list.')
   if(any(sapply(labels, class) != "character")) stop('Argument labels must contain character vectors.')
   if(!api[1] %in% c("huggingface","openai")) stop('Argument text must be one of "huggingface" or "openai"')
+  if(!is.null(model) && !is.character(model)) stop("Argument model must be a character string.")
+  if(!is.character(role)) stop("Argument role must be a character string.")
+  if(!is.character(instruct)) stop("Argument instruct must be a character string.")
+  if(!is.character(system)) stop("Argument system must be a character string.")
+  if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
 
   # container
   generated_labels = character(length(labels))
@@ -46,11 +55,11 @@ infer_labels <- function(labels,
   labels = lapply(labels, function(x) stringr::str_replace_all(x, '"', "'"))
 
   # HUGGINGFACE -------
-  if(verbose) message("Running Hugging Face")
+  if(verbose) cat("\nInferring with Hugging Face")
   if(api == "huggingface"){
 
     # does token exist
-    if(!"huggingface" %in% suppressMessages(get_tokens())$api) stop("Token of huggingface is missing. Set using set_tokens().")
+    if(!"huggingface" %in% suppressMessages(er_get_tokens())$api) stop("Token of huggingface is missing. Set using er_set_tokens().")
 
     # setup progress bar
     bar = progress::progress_bar$new(format = "  generating labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
@@ -110,11 +119,11 @@ infer_labels <- function(labels,
 
 
   # HUGGINGFACE -------
-  if(verbose) message("Running OpenAI")
+  if(verbose) cat("\nInferring with OpenAI")
   if(api == "openai"){
 
     # does token exist
-    if(!"openai" %in% suppressMessages(get_tokens())$api) stop("Token of openai is missing. Set using set_tokens().")
+    if(!"openai" %in% suppressMessages(er_get_tokens())$api) stop("Token of openai is missing. Set using er_set_tokens().")
 
     # setup progress bar
     bar = progress::progress_bar$new(format = "  inferring labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
@@ -152,6 +161,7 @@ infer_labels <- function(labels,
                                             accept = "application/json"),
                           body = prompt)
 
+        if(post$status_code == 429) stop("Insufficient quota. You exceeded your OpenAI funds.")
         if(post$status_code == 200){
 
           # get label

@@ -1,5 +1,4 @@
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("Welcome to mousetrap 3.2.2!")
-  packageStartupMessage("Summary of recent changes: http://pascalkieslich.github.io/mousetrap/news/")
-  packageStartupMessage("Forum for questions: https://forum.cogsci.nl/index.php?p=/categories/mousetrap")
-}
+  packageStartupMessage(cli::style_bold("Welcome to embedR 0.1.0!"))
+  packageStartupMessage("Find more info about the package at https://dwulff.github.io/embedR")
+  }

@@ -1,28 +1,27 @@
-#' Cluster embedding or projection vectors
+#' Cluster embedding vectors
 #'
-#' \code{cluster} generates clusters of embedding vectors using standard clustering algorithms.
+#' Function \code{er_cluster} generates clusters of embedding vectors using standard clustering algorithms.
 #'
-#' @param embedding a \code{numeric} matrix containing a text embedding or embedding projection.
+#' @param embedding a \code{numeric} matrix containing a text embedding.
 #' @param method a \code{character} string specifying the clustering method One of \code{c("hclust","dbscan","louvain")}. Default is \code{"hclust"}.
 #' @param k an \code{integer} specifying the number of clusters for \code{method = "hclust"}.
-#' @param eps a \code{numeric} specifying the point distance within clusters for \code{method = "dbscan"}.
+#' @param eps a \code{numeric} specifying the within-cluster point distance for \code{method = "dbscan"}.
 #' @param metric a \code{character} string specifying the similarity function used for methods \code{c("hclust","louvain")}.
-#' @param ... further arguments passed on to the clustering methods.
+#' @param ... further arguments passed on to the clustering methods. Can be used, e.g., to specify the linkage criterion in hierarchical clustering (see \link[stats]{hclust}), the minimum number of points in DBSCAN clustering (see \link[dbscan]{dbscan}), or the resolution in Louvain clustering (see \link[igraph]{cluster_louvain}).
 #' @param verbose a \code{logical} specifying whether to show messages.'
 #'
-#' @return The function returns a \code{matrix} containing the input embedding or projection and a new attribute \code{"cluster"}.
+#' @return The function returns a \code{matrix} containing the input embedding, which has gained a new attribute \code{"cluster"}.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
 #'
 #' # add clustering to embedding
-#' projection <- embed(neo$text) %>%
-#'   cluster()
+#' embedding <- er_cluster(embedding)
 #'
 #' @export
 
-cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric = "arccos", ..., verbose = FALSE){
+er_cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric = "arccos", ..., verbose = FALSE){
 
   # run tests
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")
@@ -42,7 +41,7 @@ cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric =
     if(is.null(k)) stop("Method hclust requires argument k specifying the number of clusters.")
 
     # get similarities
-    similarities = compare_vectors(embedding, metric = metric)
+    similarities = er_compare_vectors(embedding, metric = metric)
     if(any(similarities < 0)) stop("Negative similarities observed. Choose metric resulting in stricly positive similarities (e.g., arccos)")
 
     # get distances
@@ -61,6 +60,7 @@ cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric =
 
     # test
     if(is.null(eps)) stop("Method dbscan requires argument eps specifying the point distance within clusters.")
+    if(!is.null(k)) warning("Argument k is ignored by method dbscan.")
 
     # perform clustering
     cluster = dbscan::dbscan(embedding, eps = eps, ...)
@@ -73,15 +73,18 @@ cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric =
 
   if(method[1] == "louvain"){
 
+    # tests
+    if(!is.null(k)) warning("Argument k is ignored by method louvain.")
+
     # get similarities
-    similarities = compare_vectors(embedding, metric = metric)
+    similarities = er_compare_vectors(embedding, metric = metric)
     if(any(similarities < 0)) stop("Negative similarities observed. Choose metric resulting in stricly positive similarities (e.g., arccos)")
 
     # construct graph
     graph = igraph::graph_from_adjacency_matrix(similarities, mode = "undirected", weighted = TRUE)
 
     # perform cluster
-    cluster = igraph::cluster_louvain(graph)
+    cluster = igraph::cluster_louvain(graph, ...)
     clustering = cluster$membership
     names(clustering) = rownames(embedding)
 

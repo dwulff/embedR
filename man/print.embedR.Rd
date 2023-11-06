@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{print.embedR}
 \alias{print.embedR}
-\title{Generic print for class mt_heatmap_raw}
+\title{Print embedding object}
 \usage{
 \method{print}{embedR}(x, n = 5, m = 5, ...)
 }
@@ -16,5 +16,5 @@
 \item{...}{further arguments passed to or from other methods.}
 }
 \description{
-\code{print.embedR} abbreviates the \code{matrix} \code{print} and shows the attributes in a \code{tibble}.
+Generic function \code{print.embedR} shows a print of the embedding object with an abbreviated \code{matrix} and a \code{tibble} of its attributes.
 }

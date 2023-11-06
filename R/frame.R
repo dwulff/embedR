@@ -1,23 +1,23 @@
-#' Create data frame
+#' Build data frame
 #'
-#' \code{frame} transforms embedR object to a data frame of class \code{tibble}.
+#' Function \code{er_frame} transforms the embedding and embedding attributes to a \link[tibble]{tibble} of class \code{embedR_tbl}.
 #'
-#' @param embedding a \code{numeric} matrix containing a text embedding projection.
+#' @param embedding a \code{numeric} matrix containing a text embedding.
 #'
-#' @return The function returns a \code{tibble} containing a projected embedding. The projection dimensions will be assigned to columns \code{x} and \code{y}.
+#' @return The function returns a \code{tibble} containing the embedding and its attributes.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv
 #'
 #' @examples
 #'
 #' # embed, project, and frame
-#' tbl <- embed(neo$text) %>%
-#'   project() %>%
-#'   frame()
+#' tbl <- er_embed(neo$text) %>%
+#'   er_project() %>%
+#'   er_frame()
 #'
 #' @export
 
-frame <- function(embedding){
+er_frame <- function(embedding){
 
   # run tests
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")

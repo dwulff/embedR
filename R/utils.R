@@ -14,9 +14,9 @@
 NULL
 
 
-#' Generic print for class mt_heatmap_raw
+#' Print embedding object
 #'
-#' \code{print.embedR} abbreviates the \code{matrix} \code{print} and shows the attributes in a \code{tibble}.
+#' Generic function \code{print.embedR} shows a print of the embedding object with an abbreviated \code{matrix} and a \code{tibble} of its attributes.
 #'
 #' @param x an object of class embedR
 #' @param n an \code{integer} specifying the number of rows to print. Default is \code{5}.
@@ -65,7 +65,6 @@ print.embedR = function(x, n = 5, m = 5,...){
     cat(cli::style_underline(paste0("\n\nAttributes\n\n"), sep = ""))
     print(attr_tbl, ...)
     }
-
 
   }
 

@@ -2,40 +2,61 @@
 % Please edit documentation in R/plot.R
 \name{plot.embedR_tbl}
 \alias{plot.embedR_tbl}
-\title{Plot embedding}
+\title{Plot embedding frame}
 \usage{
 \method{plot}{embedR_tbl}(
   data,
   dimensions = c(1, 2),
-  label = "text",
-  color = NULL,
   size = NULL,
-  pt_padding = 1,
-  box_padding = 1,
+  color = NULL,
+  label = NULL,
   label_size = 3,
-  label_filter = NULL
+  label_filter = NULL,
+  pt_padding = 0.05,
+  box_padding = 0.05,
+  viridis_set = "E",
+  viridis_limits = c(0, 0.9)
 )
 }
 \arguments{
-\item{data}{a \code{data.frame} created using \link[emebedR]{frame}.}
+\item{data}{a \code{data.frame} created using \link[emebedR]{er_frame}.}
 
-\item{dimensions}{a \code{integer} vector determining the dimensions plotted. Default is \code{1:2}.}
+\item{dimensions}{an \code{integer} vector determining the dimensions plotted. Default is \code{c(1, 2)}.}
+
+\item{size}{an optional \code{character} string specifying the column used to determine point size.}
+
+\item{color}{an optional \code{character} string specifying the column used to determine point (and label) color.}
+
+\item{label}{an optional \code{character} string specifying the column used to determine label texts.}
+
+\item{label_size}{an optional \code{character} string specifying the column used to determine label size.}
+
+\item{label_filter}{an optional \code{logical} comparison determining which label texts to show in the plot. Can be based on any columns in \code{data}.}
+
+\item{pt_padding}{a \code{numeric} specifying the point padding.}
+
+\item{box_padding}{a \code{numeric} specifying the label box padding.}
+
+\item{viridis_set}{a \code{character} string determining the viridis color set. See \link[ggplot2]{scale_color_viridis_d}.}
+
+\item{viridis_limits}{a \code{numeric} vector of length 2 determining the \code{begin} and \code{end} arguments of \link[ggplot2]{scale_color_viridis_d}.}
 }
 \value{
-The function returns a \code{matrix} containing projected coordinates for each embedding vectors. The \code{matrix} has \code{nrow(embedding)} rows and \code{k} columns.
+The function returns a \code{ggplot2} object.
 }
 \description{
-\code{project} projects the embedding into a two or more dimensional space.
+Generic function \code{plot} shows the points in a two-dimensional embedding or projection space with options for customization.
 }
 \examples{
 
-# get embedding
-embedding <- embed(neo$text)
-
-# project embedding
-project(embedding)
+# get embedding plot
+neo$text \%>\%
+  er_embed() \%>\%
+  er_project() \%>\%
+  er_frame()
+  plot()
 
 }
 \references{
-Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 }

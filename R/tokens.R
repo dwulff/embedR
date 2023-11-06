@@ -1,6 +1,6 @@
 #' Set API tokens
 #'
-#' \code{set_tokens} sets access tokens of embedding APIs.
+#' Function \code{er_set_tokens} sets access tokens of embedding and inference APIs.
 #'
 #' To obtain API tokens users must register with the respective services:
 #'
@@ -12,22 +12,19 @@
 #'
 #' \emph{Hugging Face} and \emph{Cohere} both offer free-of-charge rate-limited API use.
 #'
-#'
 #' @param ... one or more api-token (name-value) pairs (e.g., huggingface = "TOKEN"). Names can be one or more of \code{c("huggingface","openai","cohere")}.
-#' @param hard a \code{logical} specifying whether tokens should be overwritten.
+#' @param hard a \code{logical} specifying whether existing tokens should be overwritten.
 #'
-#' @return The function returns a \code{matrix} containing the similarities of all pairs of the embedding vectors. The \code{matrix} has \code{nrow(embedding)} rows and columns.
-#'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
 #'
-#' # get hugging face token
+#' # set hugging face token
 #' set_tokens("huggingface" = "TOKEN")
 #'
 #' @export
 
-set_tokens <- function(..., hard = FALSE){
+er_set_tokens <- function(..., hard = FALSE){
 
   # gather input
   input = dplyr::enexprs(...)
@@ -55,23 +52,20 @@ set_tokens <- function(..., hard = FALSE){
 
 #' Get API tokens
 #'
-#' \code{get_tokens} lists existing access tokens of embedding APIs.
+#' Function \code{er_get_tokens} lists existing access tokens of embedding and inference APIs.
 #'
-#' @return The function returns a \code{tibble} showing existing access tokens.
+#' @return The function returns a \code{tibble} showing previously defined access tokens.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
 #'
-#' # get embedding
-#' embedding <- embed(neo$text)
-#'
-#' # compute similarity
-#' compare_vectors(embedding)
+#' # retrieve access tokens
+#' er_get_tokens()
 #'
 #' @export
 
-get_tokens <- function(){
+er_get_tokens <- function(){
 
   # set names
   token_names = paste0(c("huggingface","openai","cohere"), "_token")

@@ -1,34 +1,33 @@
 #' Project embedding
 #'
-#' \code{project} projects the embedding into a two or more dimensional space.
+#' Function \code{er_project} projects the embedding into a two or more dimensional space using the non-linear dimensionality reduction techniques MDS, UMAP, and PaCMAP.
 #'
 #' @param embedding a \code{numeric} matrix containing a text embedding.
-#' @param method a \code{character} string specifying the type of projection. One of \code{c("mds","umap","pacmap")}. Default is \code{"mds"}.
+#' @param method a \code{character} string specifying the type of projection. One of \code{c("mds","umap","pacmap")}. Default is \code{"mds"}. Projection method \code{"PaCMAP"} is based on the Python library \code{pacmap} (see \href{https://pypi.org/project/pacmap/}{pypi.org/project/pacmap/}) and requires access to a python environment
 #' @param k an \code{integer} determining the number of dimensions. Default is \code{2}.
-#' @param ... additional parameters handed to the embedding method.
+#' @param ... additional parameters handed to the projection method.
 #' @param verbose a \code{logical} indicating whether to show messages.
 #'
-#' @return The function returns a \code{matrix} containing projected coordinates for each embedding vectors. The \code{matrix} has \code{nrow(embedding)} rows and \code{k} columns.
+#' @return The function returns a \code{matrix} containing an embedding with columns representing the projected coordinates. The \code{matrix} has \code{nrow(embedding)} rows and \code{k} columns.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
 #'
-#' # get embedding
-#' embedding <- embed(neo$text)
-#'
 #' # project embedding
-#' project(embedding)
+#' embedding <- embedding %>%
+#'   er_project()
 #'
 #' @export
 
-project <- function(embedding, method = "mds", k = 2, ..., verbose = FALSE){
+er_project <- function(embedding, method = "mds", k = 2, ..., verbose = FALSE){
 
   # run tests
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")
   if(mode(embedding) != "numeric") stop("Argument embedding must be a numeric matrix.")
   if(!method[1] %in% c("mds","umap","pacmap")) stop('Argument method must be one of c("mds","umap","pacmap").')
   if(k %% 1 != 0 | k > ncol(embedding)) stop('Argument k must be an integer between 1 and ncol(embedding).')
+  if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
 
   # MDS -----
   if(method == "mds"){
@@ -37,7 +36,7 @@ project <- function(embedding, method = "mds", k = 2, ..., verbose = FALSE){
     if(verbose) message("Running MDS.")
 
     # determine similarity
-    similarity = compare_vectors(embedding, metric = "arccos")
+    similarity = er_compare_vectors(embedding, metric = "arccos")
     distances = as.dist(1-similarity)
 
     # run projection

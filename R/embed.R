@@ -1,27 +1,25 @@
 #' Generate text embeddings
 #'
-#' \code{embed} generates embeddings of the input texts.
+#' Function \code{er_embed} generates embeddings for text inputs.
 #'
 #' @param text a \code{character} vector of texts.
-#' @param api a \code{character} string specifying the api One of
-#'   \code{c("huggingface","openai","cohere")}. Default is \code{"huggingface"}.
-#' @param model a \code{character} string specifying the model label. Must match the
-#'   model names on the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models}, \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}, \href{https://cohere.com/embeddings}{cohere.com/embeddings}. Defaults to \code{"sentence-transformers/all-mpnet-base-v2"} for \code{api = "huggingface"}, to \code{"text-embedding-ada-002"} for \code{api = "openai"}, and to \code{"embed-english-v3.0"} for \code{api = "cohere"}.
+#' @param api a \code{character} string specifying the embedding API. One of \code{c("huggingface","openai","cohere")}. Default is \code{"huggingface"}.
+#' @param model a \code{character} string specifying the embedding model. Must match the model names in the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models}, \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}, \href{https://cohere.com/embeddings}{cohere.com/embeddings}. Defaults to \code{"sentence-transformers/all-mpnet-base-v2"} for \code{api = "huggingface"}, to \code{"text-embedding-ada-002"} for \code{api = "openai"}, and to \code{"embed-english-v3.0"} for \code{api = "cohere"}.
 #' @param type a \code{character} string specifying the type of Cohere embeddings. One of \code{c("search_document","search_query","classification","clustering")}. Default is \code{"clustering"}. See \href{https://docs.cohere.com/reference/embed}{https://docs.cohere.com/reference/embed}.
 #' @param verbose a \code{logical} specifying whether to show messages.
 #'
 #' @return The function returns a \code{matrix} containing the text embeddings with \code{length(text)} rows and as many columns as there are embedding dimensions.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
 #'
 #' # run embedding
-#' embed(neo$text)
+#' er_embed(neo$text)
 #'
 #' @export
 
-embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose = FALSE) {
+er_embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose = FALSE) {
 
   # run tests
   if(!class(text) == "character") stop('Argument text must be a "character" vector.')
@@ -34,14 +32,14 @@ embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose 
   unique_text = unique(text)
 
   # check if tokens exist
-  if(is.null(suppressMessages(get_tokens()))) stop("No API tokens exist. Set at least one token with set_tokens(). See ?set_tokens")
+  if(is.null(suppressMessages(er_get_tokens()))) stop("No API tokens exist. Set at least one token with er_set_tokens(). See ?er_set_tokens")
 
   # HUGGINGFACE -----
 
   if(api[1] == "huggingface"){
 
     # does token exist
-    if(!"huggingface" %in% suppressMessages(get_tokens())$api) stop("Token of huggingface is missing. Set using set_tokens().")
+    if(!"huggingface" %in% suppressMessages(er_get_tokens())$api) stop("Token of huggingface is missing. Set using er_set_tokens().")
 
     # check uni_text length
     counts = stringr::str_count(unique_text, "[:alpha:]+")
@@ -103,7 +101,7 @@ embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose 
   if(api[1] == "openai"){
 
     # does token exist
-    if(!"openai" %in% suppressMessages(get_tokens())$api) stop("Token of openai is missing. Set using set_tokens().")
+    if(!"openai" %in% suppressMessages(er_get_tokens())$api) stop("Token of openai is missing. Set using er_set_tokens().")
 
     # set model
     if(is.null(model)) model = "text-embedding-ada-002"
@@ -136,7 +134,7 @@ embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose 
   if(api[1] == "cohere"){
 
     # does token exist
-    if(!"cohere" %in% suppressMessages(get_tokens())$api) stop("Token of cohere is missing. Set using set_tokens().")
+    if(!"cohere" %in% suppressMessages(er_get_tokens())$api) stop("Token of cohere is missing. Set using er_set_tokens().")
 
     # check text length
     counts = stringr::str_count(unique_text, "[:alpha:]+")

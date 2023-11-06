@@ -1,36 +1,38 @@
 #' Group embedding vectors
 #'
-#' \code{group} condenses the embedding by grouping highly identical or highly similar objects.
+#' Function \code{er_group} condenses the embedding by grouping identical or highly similar objects (rows).
 #'
-#' @param embedding a \code{numeric} matrix containing a text embedding or embedding projection.
-#' @param method a \code{character} string specifying the reduction method One of \code{c("identity","fuzzy")}. Default is \code{"identity"}.
-#' @param threshold a \code{numeric} specifying the threshold for \code{method = "fuzzy"}. The threshold argument defines the quantile of the similarity (arccos) distribution that is used as the threshold for grouping embedding object.
-#' @param verbose a \code{logical} specifying whether to show messages.'
+#' @param embedding a \code{numeric} matrix containing a text embedding.
+#' @param method a \code{character} string specifying the grouping method. One of \code{c("identity","fuzzy")}. Default is \code{"identity"}.
+#' @param threshold a \code{numeric} specifying the threshold for \code{method = "fuzzy"}. The threshold argument defines the quantile of the arccos similarity distribution that is used as the threshold for grouping embedding objects.
+#' @param verbose a \code{logical} specifying whether to show messages.
 #'
-#' @return The function returns a \code{matrix} containing the embedding or projection. The \code{matrix} has \code{ncol(embedding)} dimensions and as many rows as determined by the condensing method. The \code{matrix} will gain the attribute \code{counts} containing the frequency table of each element in the original \code{embedding} or \code{projection}.
+#' @return The function returns a \code{matrix} containing the grouped embedding. The \code{matrix} still has \code{ncol(embedding)} dimensions, but its rows have been reduced due to the grouping. With \code{method = "identity"}, the \code{matrix} gains the attribute \code{frequency} containing the frequency table of each element in the original \code{embedding}. With \code{method = "fuzzy"}, the \code{matrix} gains the new attributes \code{group_size}, which is analogue to \code{frequency}, \code{group_texts}, which contains the texts assigned to the group, and \code{group_min_sim}, which shows the minimum arccos similarity of texts in a group. Furthermore, with \code{method = "fuzzy"}, the \code{text} column will be replaced with generic group labels.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv
 #'
 #' @examples
 #'
-#' # get embedding
-#' projection <- embed(neo$text) %>%
-#'   project() %>%
-#'   to_tibble()
+#' # get and group embedding vectors
+#' embedding <- er_embed(neo$text) %>%
+#'   er_group()
 #'
 #' @export
 
-group <- function(embedding, method = "identity", threshold = .995, verbose = FALSE){
+er_group <- function(embedding, method = "identity", threshold = .95, verbose = FALSE){
 
   # run tests
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")
   if(mode(embedding) != "numeric") stop("Argument embedding must be a numeric matrix.")
   if(!method[1] %in% c("identity","fuzzy")) stop('Argument method must be one of c("identity","fuzzy").')
-  if(!is.numeric(threshold) | threshold > 1 | threshold < 0) stop('Argument threshold must be a scalar between 0 and 1.')
+  if(!is.numeric(threshold) | threshold >= 1 | threshold <= 0) stop('Argument threshold must be a scalar between 0 and 1.')
   if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
 
   # Identity -----
   if(method == "identity"){
+
+    # verbose
+    if(verbose) cat("\nRunning identity grouping")
 
     # determine frequencies
     frequencies = table(rownames(embedding)) %>% c()
@@ -44,8 +46,11 @@ group <- function(embedding, method = "identity", threshold = .995, verbose = FA
   # Fuzzy -----
   if(method == "fuzzy"){
 
+    # verbose
+    if(verbose) cat("\nRunning fuzzy grouping")
+
     # produce distance mat
-    similarities = compare_vectors(embedding, metric = "arccos")
+    similarities = er_compare_vectors(embedding, metric = "arccos")
 
     # threshold similarities
     eps = 1/20**10

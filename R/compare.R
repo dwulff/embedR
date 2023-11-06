@@ -1,25 +1,22 @@
 #' Compare embedding vectors
 #'
-#' \code{compare} computes similarities of embedding vectors.
+#' Function \code{er_compare_vectors} computes similarities of embedding vectors.
 #'
 #' @param embedding a \code{numeric} matrix containing a text embedding.
 #' @param metric a \code{character} string specifying the type of similarity. One of \code{c("cosine","arccos","pearson","spearman")}. Default is \code{"cosine"}.
 #'
-#' @return The function returns a \code{matrix} containing the similarities of all pairs of the embedding vectors. The \code{matrix} has \code{nrow(embedding)} rows and columns.
+#' @return The function returns a \code{matrix} containing the similarities of all pairs of embedding vectors. The \code{matrix} has \code{nrow(embedding)} rows and columns.
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, Hussain, Z., S., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
 #'
-#' # get embedding
-#' embedding <- embed(neo$text)
-#'
-#' # compare embedding vectors
-#' compare_vectors(embedding)
+#' # compute similarity matrix
+#' embedding <- compare_vectors(embedding)
 #'
 #' @export
 
-compare_vectors <- function(embedding, metric = "cosine"){
+er_compare_vectors <- function(embedding, metric = "cosine"){
 
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")
   if(mode(embedding) != "numeric") stop("Argument embedding must be a numeric matrix.")
@@ -54,15 +51,15 @@ compare_vectors <- function(embedding, metric = "cosine"){
 
 #' Compare embeddings
 #'
-#' \code{compare_embeddings} computes the similarity between two or more embeddings.
+#' Function \code{er_compare_embeddings} computes the similarity between two or more embeddings.
 #'
 #' @param embeddings a \code{list} of embedding matrices.
-#' @param metric a \code{character} string specifying the type of similarity used to produce similarity matrices for each embedding. One of \code{c("cosine","arccos","pearson","spearman")}. Default is \code{"cosine"}.
+#' @param metric a \code{character} string specifying the type of similarity used to produce similarity matrices from each embedding. One of \code{c("cosine","arccos","pearson","spearman")}. Default is \code{"cosine"}.
 #' @param comparison_metric a \code{character} string specifying the type of similarity used to compare similarity matrices. One of \code{c("cosine","arccos","pearson","spearman")}. Default is \code{"spearman"}.
 #'
-#' @return The function returns a \code{tibble} containing the representational similarities for every pair of embeddings overall (based on the lower triangle) and per row.
+#' @return The function returns a \code{tibble} containing for every pair of embeddings the representational similarities overall (based on the lower triangle) and per row (text).
 #'
-#' @references Wulff, D. U., Aeschbach, S., & Mata, R. (2024). embeddeR. psyArXiv
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
 #'
@@ -75,7 +72,7 @@ compare_vectors <- function(embedding, metric = "cosine"){
 #'
 #' @export
 
-compare_embeddings <- function(embeddings,
+er_compare_embeddings <- function(embeddings,
                                metric = "cosine",
                                comparison_metric = "spearman"){
 
