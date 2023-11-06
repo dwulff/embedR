@@ -41,14 +41,14 @@ The models recommended for label inferences, including the default models, are n
 To obtain the best possible labels it is recommended to adjust the prompt arguments \code{role}, \code{system}, and \code{instruct}.
 }
 \examples{
-
+\dontrun{
 # get labeled results
 result <- er_embed(neo$text) \%>\%
   er_group() \%>\%
   er_project() \%>\%
   er_frame() \%>\%
   dplyr::mutate(group_labels = er_infer_labels(group_texts))
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv

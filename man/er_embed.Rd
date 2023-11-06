@@ -24,10 +24,10 @@ The function returns a \code{matrix} containing the text embeddings with \code{l
 Function \code{er_embed} generates embeddings for text inputs.
 }
 \examples{
-
+#'\dontrun{
 # run embedding
 er_embed(neo$text)
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.

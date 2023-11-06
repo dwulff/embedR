@@ -36,10 +36,10 @@ The function returns a \code{matrix} containing the input embedding, which has g
 Function \code{er_cluster} generates clusters of embedding vectors using standard clustering algorithms.
 }
 \examples{
-
+\dontrun{
 # add clustering to embedding
 embedding <- er_cluster(embedding)
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.

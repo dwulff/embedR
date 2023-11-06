@@ -22,11 +22,11 @@ The function returns a \code{matrix} containing the grouped embedding. The \code
 Function \code{er_group} condenses the embedding by grouping identical or highly similar objects (rows).
 }
 \examples{
-
+\dontrun{
 # get and group embedding vectors
 embedding <- er_embed(neo$text) \%>\%
   er_group()
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv

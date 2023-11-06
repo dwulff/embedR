@@ -18,10 +18,10 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # set hugging face token
 #' set_tokens("huggingface" = "TOKEN")
-#'
+#'}
 #' @export
 
 er_set_tokens <- function(..., hard = FALSE){

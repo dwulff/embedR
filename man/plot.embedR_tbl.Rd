@@ -48,14 +48,14 @@ The function returns a \code{ggplot2} object.
 Generic function \code{plot} shows the points in a two-dimensional embedding or projection space with options for customization.
 }
 \examples{
-
+\dontrun{
 # get embedding plot
 neo$text \%>\%
   er_embed() \%>\%
   er_project() \%>\%
   er_frame()
   plot()
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.

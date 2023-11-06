@@ -24,14 +24,14 @@ The function returns a \code{tibble} containing for every pair of embeddings the
 Function \code{er_compare_embeddings} computes the similarity between two or more embeddings.
 }
 \examples{
-
+\dontrun{
 # get embedding
 embedding_1 <- embed(neo$text)
 embedding_2 <- embed(neo$text, model = "distilbert-base-uncased")
 
 # compute similarity
 compare_embeddings(list(embedding_1, embedding_2))
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.

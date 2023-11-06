@@ -12,11 +12,11 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # get and group embedding vectors
 #' embedding <- er_embed(neo$text) %>%
 #'   er_group()
-#'
+#'}
 #' @export
 
 er_group <- function(embedding, method = "identity", threshold = .95, verbose = FALSE){

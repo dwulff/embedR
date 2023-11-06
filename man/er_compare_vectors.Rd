@@ -18,10 +18,10 @@ The function returns a \code{matrix} containing the similarities of all pairs of
 Function \code{er_compare_vectors} computes similarities of embedding vectors.
 }
 \examples{
-
+\dontrun{
 # compute similarity matrix
 embedding <- compare_vectors(embedding)
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, Hussain, Z., S., & Mata, R. (2024). embeddeR. In preparation.

@@ -15,10 +15,10 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # add clustering to embedding
 #' embedding <- er_cluster(embedding)
-#'
+#'}
 #' @export
 
 er_cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric = "arccos", ..., verbose = FALSE){

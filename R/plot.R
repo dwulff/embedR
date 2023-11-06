@@ -19,14 +19,14 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # get embedding plot
 #' neo$text %>%
 #'   er_embed() %>%
 #'   er_project() %>%
 #'   er_frame()
 #'   plot()
-#'
+#'}
 #' @method plot embedR_tbl
 #'
 #' @export
@@ -139,13 +139,13 @@ plot.embedR_tbl <- function(data,
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # get embedding plot
 #' neo$text %>%
 #'   er_embed() %>%
 #'   er_project() %>%
 #'   plot()
-#'
+#'}
 #' @method plot embedR
 #'
 #' @export

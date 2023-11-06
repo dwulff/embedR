@@ -24,11 +24,11 @@ The function returns a \code{matrix} containing an embedding with columns repres
 Function \code{er_project} projects the embedding into a two or more dimensional space using the non-linear dimensionality reduction techniques MDS, UMAP, and PaCMAP.
 }
 \examples{
-
+\dontrun{
 # project embedding
 embedding <- embedding \%>\%
   er_project()
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.

@@ -26,10 +26,10 @@ To obtain API tokens users must register with the respective services:
 \emph{Hugging Face} and \emph{Cohere} both offer free-of-charge rate-limited API use.
 }
 \examples{
-
+\dontrun{
 # set hugging face token
 set_tokens("huggingface" = "TOKEN")
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.

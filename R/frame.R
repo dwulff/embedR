@@ -9,12 +9,12 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # embed, project, and frame
 #' tbl <- er_embed(neo$text) %>%
 #'   er_project() %>%
 #'   er_frame()
-#'
+#'}
 #' @export
 
 er_frame <- function(embedding){

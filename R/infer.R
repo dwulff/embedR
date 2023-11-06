@@ -19,14 +19,14 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # get labeled results
 #' result <- er_embed(neo$text) %>%
 #'   er_group() %>%
 #'   er_project() %>%
 #'   er_frame() %>%
 #'   dplyr::mutate(group_labels = er_infer_labels(group_texts))
-#'
+#'}
 #' @export
 
 er_infer_labels <- function(labels,

@@ -14,7 +14,7 @@
 #'
 #' @section Process:
 #'
-#'.  \code{\link{er_group}} groups identical or highly similar embedding vectors to produce group-based embeddings.
+#'   \code{\link{er_group}} groups identical or highly similar embedding vectors to produce group-based embeddings.
 #'
 #'   \code{\link{er_project}} projects embeddings into smaller dimensional spaces using MDS, UMAP, or PaCMAP.
 #'

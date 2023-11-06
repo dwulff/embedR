@@ -19,13 +19,13 @@ Generic function \code{plot} shows the points in a two-dimensional embedding or 
 The function wraps around \link[emebedR]{er_frame} and \link[embedR]{plot.embedR_tbl}.
 }
 \examples{
-
+\dontrun{
 # get embedding plot
 neo$text \%>\%
   er_embed() \%>\%
   er_project() \%>\%
   plot()
-
+}
 }
 \references{
 Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.

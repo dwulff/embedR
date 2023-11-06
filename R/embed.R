@@ -13,10 +13,10 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'#'\dontrun{
 #' # run embedding
 #' er_embed(neo$text)
-#'
+#'}
 #' @export
 
 er_embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbose = FALSE) {

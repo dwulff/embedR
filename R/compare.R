@@ -10,10 +10,10 @@
 #' @references Wulff, D. U., Aeschbach, Hussain, Z., S., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # compute similarity matrix
 #' embedding <- compare_vectors(embedding)
-#'
+#'}
 #' @export
 
 er_compare_vectors <- function(embedding, metric = "cosine"){
@@ -62,14 +62,14 @@ er_compare_vectors <- function(embedding, metric = "cosine"){
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # get embedding
 #' embedding_1 <- embed(neo$text)
 #' embedding_2 <- embed(neo$text, model = "distilbert-base-uncased")
 #'
 #' # compute similarity
 #' compare_embeddings(list(embedding_1, embedding_2))
-#'
+#'}
 #' @export
 
 er_compare_embeddings <- function(embeddings,

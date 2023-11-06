@@ -13,11 +13,11 @@
 #' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. In preparation.
 #'
 #' @examples
-#'
+#'\dontrun{
 #' # project embedding
 #' embedding <- embedding %>%
 #'   er_project()
-#'
+#'}
 #' @export
 
 er_project <- function(embedding, method = "mds", k = 2, ..., verbose = FALSE){
