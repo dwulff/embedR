@@ -6,7 +6,7 @@ The `embedR` package is an open-source R package to **generate and analyze text 
 
 The `embedR` package is developed by [Dirk U. Wulff](https://github.com/dwulff), with contributions from [Samuel Aeschbach](https://samuelaeschbach.com/), [Zak Hussain](https://github.com/Zak-Hussain), and [Rui Mata](https://github.com/matarui). It is published under the GNU General Public License.
 
-An overview of the package can be accessed online or from within R using ?embedR.
+An overview of the package can be accessed online or from within R using `?embedR`.
 
 # Installation
 

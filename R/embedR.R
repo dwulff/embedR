@@ -88,6 +88,5 @@
 #' }
 #'
 #' @docType package
-#' @name text2sdg
+#' @name embedR
 NULL
-#> NULL
