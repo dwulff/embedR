@@ -3,7 +3,7 @@
 #' Function \code{er_compare_vectors} computes similarities of embedding vectors.
 #'
 #' @param embedding a \code{numeric} matrix containing a text embedding.
-#' @param metric a \code{character} string specifying the type of similarity. One of \code{c("cosine","arccos","pearson","spearman")}. Default is \code{"cosine"}.
+#' @param metric a \code{character} string specifying the type of similarity. One of \code{c("cosine","arccos","pearson","spearman","euclidean")}. Default is \code{"cosine"}.
 #'
 #' @return The function returns a \code{matrix} containing the similarities of all pairs of embedding vectors. The \code{matrix} has \code{nrow(embedding)} rows and columns.
 #'
@@ -20,7 +20,7 @@ er_compare_vectors <- function(embedding, metric = "cosine"){
 
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")
   if(mode(embedding) != "numeric") stop("Argument embedding must be a numeric matrix.")
-  if(!metric[1] %in% c("cosine","arccos","pearson","spearman")) stop('Argument metric must be one of c("cosine","arccos","pearson","spearman").')
+  if(!metric[1] %in% c("cosine","arccos","pearson","spearman","euclidean")) stop('Argument metric must be one of c("cosine","arccos","pearson","spearman","euclidean").')
 
   # get cosines
   if(metric[1] == "cosine"){
@@ -40,8 +40,9 @@ er_compare_vectors <- function(embedding, metric = "cosine"){
     }
 
   # get correlations
-  if(metric[1] == "pearson"){ out = cor(t(embedding)) }
-  if(metric[1] == "spearman"){ out = cor(t(embedding), method = "spearman") }
+  if(metric[1] == "pearson"){ out = stats::cor(t(embedding)) }
+  if(metric[1] == "spearman"){ out = stats::cor(t(embedding), method = "spearman") }
+  if(metric[1] == "euclidean"){ out = stats::dist(embedding) %>% as.matrix() }
 
   # out
   out

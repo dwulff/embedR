@@ -28,6 +28,13 @@ er_embed <- function(text, api = "huggingface", model = NULL, type = NULL, verbo
   if(!is.null(type) && !type[1] %in% c("search_document","search_query","classification","clustering")) stop('Argument type must be one of c("search_document","search_query","classification","clustering").')
   if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
 
+  # removes NAs
+  sum_nas = sum(is.na(text))
+  if(sum_nas > 0) {
+    warning(paste0("Ignored ", sum_nas," missing values during the processing of the input. Consider removing them from the data before using embedR."))
+    text = text[!is.na(text)]
+    }
+
   # set to unique
   unique_text = unique(text)
 

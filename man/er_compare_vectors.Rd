@@ -9,7 +9,7 @@ er_compare_vectors(embedding, metric = "cosine")
 \arguments{
 \item{embedding}{a \code{numeric} matrix containing a text embedding.}
 
-\item{metric}{a \code{character} string specifying the type of similarity. One of \code{c("cosine","arccos","pearson","spearman")}. Default is \code{"cosine"}.}
+\item{metric}{a \code{character} string specifying the type of similarity. One of \code{c("cosine","arccos","pearson","spearman","euclidean")}. Default is \code{"cosine"}.}
 }
 \value{
 The function returns a \code{matrix} containing the similarities of all pairs of embedding vectors. The \code{matrix} has \code{nrow(embedding)} rows and columns.

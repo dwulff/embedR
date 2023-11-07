@@ -12,7 +12,7 @@
   label = NULL,
   label_size = 3,
   label_filter = NULL,
-  pt_padding = 0.05,
+  pt_padding = 0.02,
   box_padding = 0.05,
   viridis_set = "E",
   viridis_limits = c(0, 0.9)

@@ -43,9 +43,9 @@ er_infer_labels <- function(labels,
   if(any(sapply(labels, class) != "character")) stop('Argument labels must contain character vectors.')
   if(!api[1] %in% c("huggingface","openai")) stop('Argument text must be one of "huggingface" or "openai"')
   if(!is.null(model) && !is.character(model)) stop("Argument model must be a character string.")
-  if(!is.character(role)) stop("Argument role must be a character string.")
-  if(!is.character(instruct)) stop("Argument instruct must be a character string.")
-  if(!is.character(system)) stop("Argument system must be a character string.")
+  if(!is.null(model) && !is.character(role)) stop("Argument role must be a character string.")
+  if(!is.null(model) && !is.character(instruct)) stop("Argument instruct must be a character string.")
+  if(!is.null(model) && !is.character(system)) stop("Argument system must be a character string.")
   if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
 
   # container
