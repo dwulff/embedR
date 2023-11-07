@@ -76,8 +76,10 @@ er_infer_labels <- function(labels,
 
         # setup prompt
         examples = paste0('"',labels[[i]],'"') %>% paste0(collapse = ", ")
-        instruct = glue::glue("Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place '@' before and after the category label.")
-        system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
+        #instruct = glue::glue("Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place '@' before and after the category label.")
+        #system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
+        instruct = glue::glue(instruct)
+        system = glue::glue(system)
         prompt = glue::glue("<s>[INST] <<SYS>>{system}<</SYS>> {instruct} [/INST]")
 
         # setup api
@@ -143,8 +145,10 @@ er_infer_labels <- function(labels,
 
         # generate prompt
         examples = paste0("\'",labels[[i]],"\'") %>% paste0(collapse = ", ")
-        instruct = glue::glue('Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place \'@\' before and after the category label.')
-        system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
+        #instruct = glue::glue('Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place \'@\' before and after the category label.')
+        #system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
+        instruct = glue::glue(instruct)
+        system = glue::glue(system)
         prompt = '{"model": "MODEL","messages": [{"role": "system","content": "SYSTEM"},{"role": "user","content": "INSTRUCT"}]}'
         prompt = stringr::str_replace(prompt, "MODEL", model)
         prompt = stringr::str_replace(prompt, "SYSTEM", system)
