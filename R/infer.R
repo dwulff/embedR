@@ -54,6 +54,14 @@ er_infer_labels <- function(labels,
   # fix quotation marks
   labels = lapply(labels, function(x) stringr::str_replace_all(x, '"', "'"))
 
+  # set instruct & system
+  if(is.null(instruct)){
+    instruct = glue::glue("Generate a specific and accurate one- or two- word category label that summarizes the following examples: {examples}, The best label can be among the examples. Place '@' before and after the label.")
+    }
+  if(is.null(system)){
+    system = glue::glue("You are a helpful {role}.")
+    }
+
   # HUGGINGFACE -------
   if(verbose) cat("\nInferring with Hugging Face")
   if(api == "huggingface"){
@@ -76,8 +84,6 @@ er_infer_labels <- function(labels,
 
         # setup prompt
         examples = paste0('"',labels[[i]],'"') %>% paste0(collapse = ", ")
-        #instruct = glue::glue("Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place '@' before and after the category label.")
-        #system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
         instruct_i = glue::glue(instruct)
         system_i = glue::glue(system)
         prompt = glue::glue("<s>[INST] <<SYS>>{system_i}<</SYS>> {instruct_i} [/INST]")
@@ -145,8 +151,6 @@ er_infer_labels <- function(labels,
 
         # generate prompt
         examples = paste0("\'",labels[[i]],"\'") %>% paste0(collapse = ", ")
-        #instruct = glue::glue('Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place \'@\' before and after the category label.')
-        #system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
         instruct_i = glue::glue(instruct)
         system_i = glue::glue(system)
         prompt = '{"model": "MODEL","messages": [{"role": "system","content": "SYSTEM"},{"role": "user","content": "INSTRUCT"}]}'

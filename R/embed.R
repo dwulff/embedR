@@ -183,8 +183,9 @@ er_embed <- function(text, context = NULL, api = "huggingface", model = NULL, ty
                                           "Content-Type" = "application/json"),
                         body = input)
 
+
       # catch error
-      if(post$status_code == 400) {
+      if(post$status_code %in% c(400, 502)) {
         error = httr::content(post, as = "text", encoding = "UTF-8") %>%
           jsonlite::fromJSON() %>%
           `[[`("error") %>%
@@ -207,7 +208,7 @@ er_embed <- function(text, context = NULL, api = "huggingface", model = NULL, ty
 
       # out
       emb
-    }) %>% do.call(what = rbind)
+    }) %>%  do.call(what = rbind)
 
 
   }
