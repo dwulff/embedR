@@ -4,10 +4,19 @@
 \alias{er_embed}
 \title{Generate text embeddings}
 \usage{
-er_embed(text, api = "huggingface", model = NULL, type = NULL, verbose = FALSE)
+er_embed(
+  text,
+  context = NULL,
+  api = "huggingface",
+  model = NULL,
+  type = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{text}{a \code{character} vector of texts.}
+
+\item{context}{an optional \code{character} string specifying the context of \code{text}. The \code{context} is added as a prefix to \code{text}.}
 
 \item{api}{a \code{character} string specifying the embedding API. One of \code{c("huggingface","openai","cohere")}. Default is \code{"huggingface"}.}
 

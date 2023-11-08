@@ -62,7 +62,7 @@ er_infer_labels <- function(labels,
     if(!"huggingface" %in% suppressMessages(er_get_tokens())$api) stop("Token of huggingface is missing. Set using er_set_tokens().")
 
     # setup progress bar
-    bar = progress::progress_bar$new(format = "  generating labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
+    bar = progress::progress_bar$new(format = "Inferring labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
     bar$tick(0)
 
     # iterate through labels
@@ -78,9 +78,9 @@ er_infer_labels <- function(labels,
         examples = paste0('"',labels[[i]],'"') %>% paste0(collapse = ", ")
         #instruct = glue::glue("Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place '@' before and after the category label.")
         #system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
-        instruct = glue::glue(instruct)
-        system = glue::glue(system)
-        prompt = glue::glue("<s>[INST] <<SYS>>{system}<</SYS>> {instruct} [/INST]")
+        instruct_i = glue::glue(instruct)
+        system_i = glue::glue(system)
+        prompt = glue::glue("<s>[INST] <<SYS>>{system_i}<</SYS>> {instruct_i} [/INST]")
 
         # setup api
         if(is.null(model)) model = "meta-llama/Llama-2-70b-chat-hf"
@@ -120,7 +120,7 @@ er_infer_labels <- function(labels,
     }
 
 
-  # HUGGINGFACE -------
+  # OPENAI -------
   if(verbose) cat("\nInferring with OpenAI")
   if(api == "openai"){
 
@@ -128,7 +128,7 @@ er_infer_labels <- function(labels,
     if(!"openai" %in% suppressMessages(er_get_tokens())$api) stop("Token of openai is missing. Set using er_set_tokens().")
 
     # setup progress bar
-    bar = progress::progress_bar$new(format = "  inferring labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
+    bar = progress::progress_bar$new(format = "Inferring labels [:bar] :percent eta: :eta", total = 100, clear = FALSE, width= 60)
     bar$tick(0)
 
     # iterate through labels
@@ -147,12 +147,12 @@ er_infer_labels <- function(labels,
         examples = paste0("\'",labels[[i]],"\'") %>% paste0(collapse = ", ")
         #instruct = glue::glue('Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place \'@\' before and after the category label.')
         #system = glue::glue("You are a helpful {role} who provides short, specific, and accurate category labels.")
-        instruct = glue::glue(instruct)
-        system = glue::glue(system)
+        instruct_i = glue::glue(instruct)
+        system_i = glue::glue(system)
         prompt = '{"model": "MODEL","messages": [{"role": "system","content": "SYSTEM"},{"role": "user","content": "INSTRUCT"}]}'
         prompt = stringr::str_replace(prompt, "MODEL", model)
-        prompt = stringr::str_replace(prompt, "SYSTEM", system)
-        prompt = stringr::str_replace(prompt, "INSTRUCT", instruct)
+        prompt = stringr::str_replace(prompt, "SYSTEM", system_i)
+        prompt = stringr::str_replace(prompt, "INSTRUCT", instruct_i)
 
         # setup api
         api = glue::glue("https://api.openai.com/v1/chat/completions")
@@ -172,7 +172,7 @@ er_infer_labels <- function(labels,
           generated_labels[i] = httr::content(post, as = "text", encoding = "UTF-8") %>%
             jsonlite::fromJSON() %>%
             `[[`("choices") %>% `[[`("message") %>%
-            unlist() %>% `[`("content") %>%
+            unlist() %>% `[`("content") %>% #print() %>%
             stringr::str_remove_all("@") %>%
             stringr::str_trim()
 
