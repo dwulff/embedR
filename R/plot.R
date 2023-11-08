@@ -61,7 +61,6 @@ plot.embedR_tbl <- function(data,
                                 size = !!dplyr::enquo(size),
                                 label = !!dplyr::enquo(label))
 
-
   # adjust labels
   label_filter = dplyr::enquo(label_filter)
   if(rlang::expr_text(label_filter)!= "~NULL"){
@@ -79,12 +78,14 @@ plot.embedR_tbl <- function(data,
     ggplot2::geom_point() + ggplot2::theme_minimal()
 
   # handle labels
-  if(!is.null(label)){
+  if("label" %in% names(data)){
+
     p = p + ggrepel::geom_text_repel(point.padding = ggplot2::unit(pt_padding,"npc"),
                                      box.padding = ggplot2::unit(box_padding,"npc"),
                                      size = label_size,
                                      min.segment.length = 0,
                                      max.overlaps = 1000)
+
     }
 
   # add colors

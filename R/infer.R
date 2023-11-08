@@ -12,6 +12,7 @@
 #' @param role a \code{character} string specifying the systems role in place of \code{role} in the general system instruction to the model. Default is \code{"assistant"}.
 #' @param system a \code{character} string specifying the general system instruction to the model. Default is \code{"You are a helpful {role} who provides short, specific, and accurate category labels."}.
 #' @param instruct a \code{character} string specifying the instruction for the model. Must contain the placeholder \code{"{examples}"}. Default is \code{"Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place '@' before and after the category label."}.
+#' @param attempts an optional \code{integer} specifying the number of API request attempts for a given set of input labels.
 #' @param verbose a \code{logical} specifying whether to show messages.'
 #'
 #' @return The function returns a \code{character} vector of category labels.
@@ -33,8 +34,9 @@ er_infer_labels <- function(labels,
                             api = "huggingface",
                             model = NULL,
                             role = "assistant",
-                            instruct = NULL,
                             system = NULL,
+                            instruct = NULL,
+                            attempts = 50,
                             verbose = FALSE){
 
 
@@ -56,10 +58,10 @@ er_infer_labels <- function(labels,
 
   # set instruct & system
   if(is.null(instruct)){
-    instruct = glue::glue("Generate a specific and accurate one- or two- word category label that summarizes the following examples: {examples}, The best label can be among the examples. Place '@' before and after the label.")
+    instruct = "Generate a specific and accurate one- or two- word category label that summarizes the following examples: {examples}, The best label can be among the examples. Place '@' before and after the label."
     }
   if(is.null(system)){
-    system = glue::glue("You are a helpful {role}.")
+    system = "You are a helpful {role}."
     }
 
   # HUGGINGFACE -------
@@ -76,11 +78,11 @@ er_infer_labels <- function(labels,
     # iterate through labels
     for(i in 1:length(labels)){
 
-      n_attempts = 11
-      for(j in 1:n_attempts){
+      # do attempts
+      for(j in 1:attempts){
 
-        # break if n_attempts reached
-        if(j == n_attempts) stop("Too many errors. See messages printed in console.")
+        # break if attempts reached
+        if(j == attempts) stop("Too many errors. See messages printed in console.")
 
         # setup prompt
         examples = paste0('"',labels[[i]],'"') %>% paste0(collapse = ", ")
@@ -140,11 +142,11 @@ er_infer_labels <- function(labels,
     # iterate through labels
     for(i in 1:length(labels)){
 
-      n_attempts = 11
-      for(j in 1:n_attempts){
+      # do attempts
+      for(j in 1:attempts){
 
-        # break if n_attempts reached
-        if(j == n_attempts) stop("Too many errors. See messages printed in console.")
+        # break if attempts reached
+        if(j == attempts) stop("Too many errors. See messages printed in console.")
 
         # setup prompt
         if(is.null(model)) model = "gpt-4"

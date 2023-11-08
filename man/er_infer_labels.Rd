@@ -9,8 +9,9 @@ er_infer_labels(
   api = "huggingface",
   model = NULL,
   role = "assistant",
-  instruct = NULL,
   system = NULL,
+  instruct = NULL,
+  attempts = 50,
   verbose = FALSE
 )
 }
@@ -23,9 +24,11 @@ er_infer_labels(
 
 \item{role}{a \code{character} string specifying the systems role in place of \code{role} in the general system instruction to the model. Default is \code{"assistant"}.}
 
+\item{system}{a \code{character} string specifying the general system instruction to the model. Default is \code{"You are a helpful {role} who provides short, specific, and accurate category labels."}.}
+
 \item{instruct}{a \code{character} string specifying the instruction for the model. Must contain the placeholder \code{"{examples}"}. Default is \code{"Generate a specific and accurate one or two word category label that captures the common meaning of the following examples: {examples}. Place '@' before and after the category label."}.}
 
-\item{system}{a \code{character} string specifying the general system instruction to the model. Default is \code{"You are a helpful {role} who provides short, specific, and accurate category labels."}.}
+\item{attempts}{an optional \code{integer} specifying the number of API request attempts for a given set of input labels.}
 
 \item{verbose}{a \code{logical} specifying whether to show messages.'}
 }
