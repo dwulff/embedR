@@ -9,13 +9,21 @@
   dimensions = c(1, 2),
   size = NULL,
   color = NULL,
+  point_outline = NULL,
+  point_padding = 0.01,
+  point_alpha = NULL,
   label = NULL,
   label_size = 3,
+  label_color = NULL,
+  label_outline = NULL,
   label_filter = NULL,
-  pt_padding = 0.02,
-  box_padding = 0.05,
+  label_padding = 0.02,
+  label_overlaps = 10,
+  segment_size = 0.5,
+  segment_type = 1,
   viridis_set = "E",
-  viridis_limits = c(0, 0.9)
+  viridis_limits = c(0, 0.9),
+  ...
 )
 }
 \arguments{
@@ -27,19 +35,35 @@
 
 \item{color}{an optional \code{character} string specifying the column used to determine point (and label) color.}
 
+\item{point_outline}{an optional \code{character} specifying the color of an optional point outline.}
+
+\item{point_padding}{an optional \code{numeric} specifying the point padding.}
+
+\item{point_alpha}{an optional \code{numeric} specifying the transparency of points.}
+
 \item{label}{an optional \code{character} string specifying the column used to determine label texts.}
 
 \item{label_size}{an optional \code{character} string specifying the column used to determine label size.}
 
+\item{label_color}{an optional \code{numeric} altering the label color relative to point color. Values of \code{label_color > 0} renders labels darker and \code{label_color < 0} lighter. Argument \code{label_color} must be between -1 and 1.}
+
+\item{label_outline}{an optional \code{numeric} specifying the width of an optional white outline around the text labels. The default is \code{label_outline = NULL} implying no outline.}
+
 \item{label_filter}{an optional \code{logical} comparison determining which label texts to show in the plot. Can be based on any columns in \code{data}.}
 
-\item{pt_padding}{a \code{numeric} specifying the point padding.}
+\item{label_padding}{an optional \code{numeric} specifying the label box padding.}
 
-\item{box_padding}{a \code{numeric} specifying the label box padding.}
+\item{label_overlaps}{an optional \code{integer} specifying when to exclude text labels that overlap too many things. Defaults to 10.}
 
-\item{viridis_set}{a \code{character} string determining the viridis color set. See \link[ggplot2]{scale_color_viridis_d}.}
+\item{segment_size}{an optional \code{numeric} specifying the width of the segments.}
 
-\item{viridis_limits}{a \code{numeric} vector of length 2 determining the \code{begin} and \code{end} arguments of \link[ggplot2]{scale_color_viridis_d}.}
+\item{segment_type}{an optional \code{numeric} specifying the type of the segments.}
+
+\item{viridis_set}{an optional \code{character} string determining the viridis color set. See \link[ggplot2]{scale_color_viridis_d}.}
+
+\item{viridis_limits}{an optional \code{numeric} vector of length 2 determining the \code{begin} and \code{end} arguments of \link[ggplot2]{scale_color_viridis_d}.}
+
+\item{...}{further arguments passed to \link[ggplot2]{geom_point}.}
 }
 \value{
 The function returns a \code{ggplot2} object.

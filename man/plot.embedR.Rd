@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{embedding}{a \code{numeric} matrix containing a text embedding.}
+
+\item{...}{further arguments passed to \link[ggplot2]{geom_point}.}
 }
 \value{
 The function returns a \code{ggplot2} object.

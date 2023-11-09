@@ -26,7 +26,7 @@ BugReports: https://github.com/dwulff/embedR/issues
 Maintainer: Dirk Wulff <dirk.wulff@gmail.com>
 License: GPL-3
 Depends: R (>= 3.1.0),
-Imports: dplyr (>= 0.5.0), tidyr, tibble, magrittr, ggplot2, ggrepel, stringr, httr, glue, jsonlite, tidytext, igraph, umap, reticulate, progress, cli, igraph, dbscan
+Imports: dplyr (>= 0.5.0), tidyr, tibble, magrittr, ggplot2, ggplotify, ggrepel, stringr, httr, glue, jsonlite, tidytext, igraph, umap, reticulate, progress, cli, igraph, dbscan
 Suggests: testthat
 Encoding: UTF-8
 LazyData: true
