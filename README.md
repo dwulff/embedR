@@ -56,8 +56,8 @@ result = embedding %>%
 result = embedding %>% 
 
   # relabel groups
-  er_mutate(labels = label(group_texts, 
-                           api = "openai"))
+  dplyr::mutate(labels = label(group_texts,
+                api = "openai"))
                         
 # visualize
 result %>% plot()
