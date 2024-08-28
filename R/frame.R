@@ -60,3 +60,31 @@ er_frame <- function(embedding){
   # out
   out
 }
+
+
+#' Build data frame
+#'
+#' Function \code{er_unframe} transforms the embedding and embedding attributes to a \link[tibble]{tibble} of class \code{embedR_tbl}.
+#'
+#' @param frame a \code{data.frame} containing a text embedding.
+#'
+#' @return The function returns a \code{matrix} containing the embedding and its attributes.
+#'
+#' @references Wulff, D. U., Aeschbach, S., Hussain, Z., & Mata, R. (2024). embeddeR. psyArXiv
+#'
+#' @examples
+#'\dontrun{
+#' # embed, project, and frame
+#' tbl <- er_embed(neo$text) %>%
+#'   er_project() %>%
+#'   er_frame()
+#'}
+#' @export
+
+er_unframe <- function(embedding){
+
+
+
+
+
+}

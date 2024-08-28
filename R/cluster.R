@@ -7,6 +7,7 @@
 #' @param k an \code{integer} specifying the number of clusters for \code{method = "hclust"}.
 #' @param eps a \code{numeric} specifying the within-cluster point distance for \code{method = "dbscan"}.
 #' @param metric a \code{character} string specifying the similarity function used for methods \code{c("hclust","louvain")}. Default is \code{"euclidean"}. See \link[embedR]{compare_vectors}.
+#' @param linkage a \code{character} string specifying the linkage function used for method \code{"hclust"}. Default is \code{"complete"}. See \link[stats]{hclust}.
 #' @param ... further arguments passed on to the clustering methods. Can be used, e.g., to specify the linkage criterion in hierarchical clustering (see \link[stats]{hclust}), the minimum number of points in DBSCAN clustering (see \link[dbscan]{dbscan}), or the resolution in Louvain clustering (see \link[igraph]{cluster_louvain}).
 #' @param verbose a \code{logical} specifying whether to show messages.'
 #'
@@ -21,7 +22,7 @@
 #'}
 #' @export
 
-er_cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric = "euclidean", ..., verbose = FALSE){
+er_cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metric = "euclidean", linkage = NULL, ..., verbose = FALSE){
 
   # run tests
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")
@@ -39,6 +40,8 @@ er_cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metri
 
     # test
     if(is.null(k)) stop("Method hclust requires argument k specifying the number of clusters.")
+
+    if(is.null(linkage)) linkage = "complete"
 
     # get distances
     if(metric != "euclidean"){
@@ -58,7 +61,7 @@ er_cluster <- function(embedding, method = "hclust", k = NULL, eps = NULL, metri
       }
 
     # perform cluster
-    cluster = stats::hclust(distances, ...)
+    cluster = fastcluster::hclust(distances, method = linkage, ...)
     clustering = cutree(cluster, k = k)
 
   }

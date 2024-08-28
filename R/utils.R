@@ -26,7 +26,14 @@ NULL
 #' @method print embedR
 #' @export
 
-print.embedR = function(x, n = 5, m = 5,...){
+print.embedR = function(x, n = NULL, m = NULL,...){
+
+
+  # CHECK SIZE ---
+
+  # check
+  if(is.null(n)){ n = min(5, nrow(x)) }
+  if(is.null(m)){ m = min(5, ncol(x)) }
 
   # CONSTRUCT ---
 

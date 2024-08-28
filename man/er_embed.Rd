@@ -20,7 +20,7 @@ er_embed(
 
 \item{api}{a \code{character} string specifying the embedding API. One of \code{c("huggingface","openai","cohere")}. Default is \code{"huggingface"}.}
 
-\item{model}{a \code{character} string specifying the embedding model. Must match the model names in the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models}, \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}, \href{https://cohere.com/embeddings}{cohere.com/embeddings}. Defaults to \code{"sentence-transformers/all-mpnet-base-v2"} for \code{api = "huggingface"}, to \code{"text-embedding-ada-002"} for \code{api = "openai"}, and to \code{"embed-english-v3.0"} for \code{api = "cohere"}.}
+\item{model}{a \code{character} string specifying the embedding model. Must match the model names in the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models}, \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}, \href{https://cohere.com/embeddings}{cohere.com/embeddings}. Defaults to \code{"sentence-transformers/all-mpnet-base-v2"} for \code{api = "huggingface"}, to \code{"text-embedding-3-large"} for \code{api = "openai"}, and to \code{"embed-english-v3.0"} for \code{api = "cohere"}.}
 
 \item{type}{a \code{character} string specifying the type of Cohere embeddings. One of \code{c("search_document","search_query","classification","clustering")}. Default is \code{"clustering"}. See \href{https://docs.cohere.com/reference/embed}{https://docs.cohere.com/reference/embed}.}
 

@@ -10,6 +10,7 @@ er_cluster(
   k = NULL,
   eps = NULL,
   metric = "euclidean",
+  linkage = NULL,
   ...,
   verbose = FALSE
 )
@@ -24,6 +25,8 @@ er_cluster(
 \item{eps}{a \code{numeric} specifying the within-cluster point distance for \code{method = "dbscan"}.}
 
 \item{metric}{a \code{character} string specifying the similarity function used for methods \code{c("hclust","louvain")}. Default is \code{"euclidean"}. See \link[embedR]{compare_vectors}.}
+
+\item{linkage}{a \code{character} string specifying the linkage function used for method \code{"hclust"}. Default is \code{"complete"}. See \link[stats]{hclust}.}
 
 \item{...}{further arguments passed on to the clustering methods. Can be used, e.g., to specify the linkage criterion in hierarchical clustering (see \link[stats]{hclust}), the minimum number of points in DBSCAN clustering (see \link[dbscan]{dbscan}), or the resolution in Louvain clustering (see \link[igraph]{cluster_louvain}).}
 

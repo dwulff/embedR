@@ -87,4 +87,7 @@
 #'
 #' @docType package
 #' @name embedR
+#' @useDynLib embedR, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 NULL
+

@@ -5,7 +5,7 @@
 #' @param text a \code{character} vector of texts.
 #' @param context an optional \code{character} string specifying the context of \code{text}. The \code{context} is added as a prefix to \code{text}.
 #' @param api a \code{character} string specifying the embedding API. One of \code{c("huggingface","openai","cohere")}. Default is \code{"huggingface"}.
-#' @param model a \code{character} string specifying the embedding model. Must match the model names in the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models}, \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}, \href{https://cohere.com/embeddings}{cohere.com/embeddings}. Defaults to \code{"sentence-transformers/all-mpnet-base-v2"} for \code{api = "huggingface"}, to \code{"text-embedding-ada-002"} for \code{api = "openai"}, and to \code{"embed-english-v3.0"} for \code{api = "cohere"}.
+#' @param model a \code{character} string specifying the embedding model. Must match the model names in the corresponding APIs. See, \href{https://huggingface.co/models}{huggingface.co/models}, \href{https://platform.openai.com/docs/models/embeddings}{platform.openai.com/docs/models/embeddings}, \href{https://cohere.com/embeddings}{cohere.com/embeddings}. Defaults to \code{"sentence-transformers/all-mpnet-base-v2"} for \code{api = "huggingface"}, to \code{"text-embedding-3-large"} for \code{api = "openai"}, and to \code{"embed-english-v3.0"} for \code{api = "cohere"}.
 #' @param type a \code{character} string specifying the type of Cohere embeddings. One of \code{c("search_document","search_query","classification","clustering")}. Default is \code{"clustering"}. See \href{https://docs.cohere.com/reference/embed}{https://docs.cohere.com/reference/embed}.
 #' @param verbose a \code{logical} specifying whether to show messages.
 #'
@@ -24,7 +24,7 @@ er_embed <- function(text, context = NULL, api = "huggingface", model = NULL, ty
 
   # run tests
   if(!class(text) == "character") stop('Argument text must be a "character" vector.')
-  if(!api[1] %in% c("huggingface","openai","cohere")) stop('Argument text must be one of c("huggingface","openai", "cohere").')
+  if(!api[1] %in% c("huggingface","openai","cohere")) stop('Argument api must be one of c("huggingface","openai", "cohere").')
   if(!is.null(model) && !is.character(model[1])) stop('Argument model must be of type character.')
   if(!is.null(type) && !type[1] %in% c("search_document","search_query","classification","clustering")) stop('Argument type must be one of c("search_document","search_query","classification","clustering").')
   if(!is.logical(verbose)) stop('Argument verbose must be of type logical.')
@@ -34,6 +34,13 @@ er_embed <- function(text, context = NULL, api = "huggingface", model = NULL, ty
   if(sum_nas > 0) {
     warning(paste0("Ignored ", sum_nas," missing values during the processing of the input. Consider removing them from the data before using embedR."))
     text = text[!is.na(text)]
+    }
+
+  # removes empty strings
+  sum_empty = sum(text == "")
+  if(sum_empty > 0) {
+    warning(paste0("Ignored ", sum_empty," empty values during the processing of the input. Consider removing them from the data before using embedR."))
+    text = text[text != ""]
     }
 
   # set to unique
@@ -148,7 +155,7 @@ er_embed <- function(text, context = NULL, api = "huggingface", model = NULL, ty
     if(!"openai" %in% suppressMessages(er_get_tokens())$api) stop("Token of openai is missing. Set using er_set_tokens().")
 
     # set model
-    if(is.null(model)) model = "text-embedding-ada-002"
+    if(is.null(model)) model = "text-embedding-3-large"
 
     # post
     api = "https://api.openai.com/v1/embeddings"
@@ -185,7 +192,7 @@ er_embed <- function(text, context = NULL, api = "huggingface", model = NULL, ty
 
 
       # catch error
-      if(post$status_code %in% c(400, 502)) {
+      if(post$status_code %in% c(400, 401, 502)) {
         error = httr::content(post, as = "text", encoding = "UTF-8") %>%
           jsonlite::fromJSON() %>%
           `[[`("error") %>%

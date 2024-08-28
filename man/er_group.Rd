@@ -4,7 +4,13 @@
 \alias{er_group}
 \title{Group embedding vectors}
 \usage{
-er_group(embedding, method = "identity", threshold = 0.95, verbose = FALSE)
+er_group(
+  embedding,
+  method = "identity",
+  threshold = 0.99,
+  linkage = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{embedding}{a \code{numeric} matrix containing a text embedding.}
@@ -12,6 +18,8 @@ er_group(embedding, method = "identity", threshold = 0.95, verbose = FALSE)
 \item{method}{a \code{character} string specifying the grouping method. One of \code{c("identity","fuzzy")}. Default is \code{"identity"}.}
 
 \item{threshold}{a \code{numeric} specifying the threshold for \code{method = "fuzzy"}. The threshold argument defines the quantile of the arccos similarity distribution that is used as the threshold for grouping embedding objects.}
+
+\item{linkage}{a \code{character} specifying the linkage used for \code{method = "fuzzy"}. The linkage argument defines the criterion used to join clusters.}
 
 \item{verbose}{a \code{logical} specifying whether to show messages.}
 }

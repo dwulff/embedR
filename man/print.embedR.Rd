@@ -4,7 +4,7 @@
 \alias{print.embedR}
 \title{Print embedding object}
 \usage{
-\method{print}{embedR}(x, n = 5, m = 5, ...)
+\method{print}{embedR}(x, n = NULL, m = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class embedR}

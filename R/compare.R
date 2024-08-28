@@ -24,19 +24,17 @@ er_compare_vectors <- function(embedding, metric = "cosine"){
 
   # get cosines
   if(metric[1] == "cosine"){
-    dotprod = embedding %*% t(embedding)
-    norm = sqrt(rowSums(embedding**2))
-    out = dotprod / t(t(norm)) %*% t(norm)
+    out = arma_cosine(embedding)
+    rownames(out) = colnames(out) = rownames(embedding)
     }
 
   # get arccos
   if(metric[1] == "arccos"){
-    dotprod = embedding %*% t(embedding)
-    norm = sqrt(rowSums(embedding**2))
-    cosine = dotprod / t(t(norm)) %*% t(norm)
+    cosine = arma_cosine(embedding)
     cosine[cosine > 1] = 1
     cosine[cosine < -1] = -1
     out = 1-acos(cosine)/pi
+    rownames(out) = colnames(out) = rownames(embedding)
     }
 
   # get correlations

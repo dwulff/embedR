@@ -5,6 +5,7 @@
 #' @param embedding a \code{numeric} matrix containing a text embedding.
 #' @param method a \code{character} string specifying the grouping method. One of \code{c("identity","fuzzy")}. Default is \code{"identity"}.
 #' @param threshold a \code{numeric} specifying the threshold for \code{method = "fuzzy"}. The threshold argument defines the quantile of the arccos similarity distribution that is used as the threshold for grouping embedding objects.
+#' @param linkage a \code{character} specifying the linkage used for \code{method = "fuzzy"}. The linkage argument defines the criterion used to join clusters.
 #' @param verbose a \code{logical} specifying whether to show messages.
 #'
 #' @return The function returns a \code{matrix} containing the grouped embedding. The \code{matrix} still has \code{ncol(embedding)} dimensions, but its rows have been reduced due to the grouping. With \code{method = "identity"}, the \code{matrix} gains the attribute \code{frequency} containing the frequency table of each element in the original \code{embedding}. With \code{method = "fuzzy"}, the \code{matrix} gains the new attributes \code{group_size}, which is analogue to \code{frequency}, \code{group_texts}, which contains the texts assigned to the group, and \code{group_min_sim}, which shows the minimum arccos similarity of texts in a group. Furthermore, with \code{method = "fuzzy"}, the \code{text} column will be replaced with generic group labels.
@@ -19,7 +20,11 @@
 #'}
 #' @export
 
-er_group <- function(embedding, method = "identity", threshold = .95, verbose = FALSE){
+er_group <- function(embedding,
+                     method = "identity",
+                     threshold = .99,
+                     linkage = NULL,
+                     verbose = FALSE){
 
   # run tests
   if(!any(class(embedding) == "matrix")) stop("Argument embedding must be a matrix.")
@@ -57,8 +62,8 @@ er_group <- function(embedding, method = "identity", threshold = .95, verbose = 
     similarity_cutoff = quantile(similarities[upper.tri(similarities)], threshold) - eps
 
     # cluster
-    cluster = hclust(as.dist(1 - similarities),
-                     method = "complete")
+    cluster = fastcluster::hclust(as.dist(1 - similarities),
+                                  method = "complete")
 
     # get clustering
     number_steps = sum(cluster$height <  (1 - similarity_cutoff))
@@ -73,7 +78,13 @@ er_group <- function(embedding, method = "identity", threshold = .95, verbose = 
                                dimnames = list(paste0("group_",1:length(cliques)), NULL))
     for(i in 1:length(cliques)){
       grouped_embedding[i,] = colMeans(embedding[cliques[[i]],,drop=FALSE])
+    }
+
+    # overwrite cliques
+    if(!is.null(attr(embedding, "group_texts"))){
+      cliques = split(attr(embedding, "group_texts"), clustering)
       }
+
 
     # add frequencies
     frequencies = lengths(cliques)
